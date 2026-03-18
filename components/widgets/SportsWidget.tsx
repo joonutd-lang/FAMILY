@@ -68,14 +68,14 @@ export function SportsWidget() {
         <img
           src={team.logoUrl}
           alt={team.abbreviation}
-          className="h-9 w-9 rounded-xl border border-black/10 bg-white/70 p-1 object-contain dark:border-white/20 dark:bg-black/45"
+          className="h-9 w-9 rounded-xl border border-black/10 bg-white/95 p-1 object-contain dark:border-white/20 dark:bg-black/45"
           loading="lazy"
         />
       );
     }
     return (
       <div
-        className="h-9 w-9 rounded-xl border border-black/10 bg-white/70 dark:border-white/20 dark:bg-black/45"
+        className="h-9 w-9 rounded-xl border border-black/10 bg-white/95 dark:border-white/20 dark:bg-black/45"
         style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
         <div className="h-5 w-5 rounded-full" style={{ background: team.color }} />
@@ -98,7 +98,7 @@ export function SportsWidget() {
         </Button>
       </div>
 
-      <div className="mt-3 rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/55">
+      <div className="mt-3 rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
         <div className="flex items-center justify-between gap-2">
           <div className="text-xs font-medium text-black/60 dark:text-white/85">Favorite teams</div>
           <Badge variant="info">Multiple</Badge>
@@ -118,7 +118,7 @@ export function SportsWidget() {
               const opponent = item.opponent;
               const nextAt = new Date(next.startAt);
               return (
-                <div key={team.id} className="rounded-2xl border border-black/10 bg-white/70 p-3 dark:bg-black/45">
+                <div key={team.id} className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/45">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
@@ -138,7 +138,7 @@ export function SportsWidget() {
                     </UiBadge>
                   </div>
 
-                  <div className="mt-3 rounded-xl bg-white/60 p-2 dark:bg-black/45">
+                  <div className="mt-3 rounded-xl bg-white/95 p-2 dark:bg-black/45">
                     <div className="flex items-center justify-between gap-3">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
@@ -182,12 +182,12 @@ export function SportsWidget() {
               <div
                 key={t.id}
                 className={`flex items-center justify-between gap-3 rounded-2xl border px-3 py-2 text-left ${
-                  on ? "border-black/20 bg-white/90" : "border-black/10 bg-white/60 hover:bg-white/80"
+                  on ? "border-black/20 bg-white/90" : "border-black/10 bg-white/95 hover:bg-white/90"
                 } dark:hover:bg-black/55`}
               >
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <div className="h-7 w-7 rounded-lg border border-black/10 bg-white/70 p-1 dark:border-white/20 dark:bg-black/45">
+                    <div className="h-7 w-7 rounded-lg border border-black/10 bg-white/95 p-1 dark:border-white/20 dark:bg-black/45">
                       {t.logoUrl ? (
                         <img src={t.logoUrl} alt={t.abbreviation} className="h-full w-full rounded-[5px] object-contain" loading="lazy" />
                       ) : (

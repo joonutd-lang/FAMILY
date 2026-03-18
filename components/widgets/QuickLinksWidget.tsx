@@ -83,7 +83,7 @@ export function QuickLinksWidget() {
         {quickLinks.map((l) => {
           const Icon = iconMap[l.icon] ?? LinkIcon;
           return (
-            <div key={l.id} className="relative overflow-hidden rounded-2xl border border-black/10 bg-white/70 p-3 dark:bg-black/45">
+            <div key={l.id} className="relative overflow-hidden rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/45">
               <button
                 className="flex h-full w-full flex-col items-start gap-2 text-left"
                 onClick={() => window.open(l.url, "_blank", "noopener,noreferrer")}
@@ -102,7 +102,7 @@ export function QuickLinksWidget() {
 
               <div className="absolute right-2 top-2 flex gap-1">
                 <button
-                  className="rounded-full bg-white/70 p-1 text-black/60 hover:bg-white"
+                  className="rounded-full bg-white/95 p-1 text-black/60 hover:bg-white"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -113,7 +113,7 @@ export function QuickLinksWidget() {
                   <Pencil className="h-4 w-4" />
                 </button>
                 <button
-                  className="rounded-full bg-white/70 p-1 text-red-600 hover:bg-white"
+                  className="rounded-full bg-white/95 p-1 text-red-600 hover:bg-white"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -161,7 +161,7 @@ export function QuickLinksWidget() {
                     type="color"
                     value={color}
                     onChange={(e) => setColor(e.target.value)}
-                    className="h-10 w-16 rounded-2xl border border-black/10 bg-white/70 p-1 dark:border-white/20 dark:bg-black/55"
+                    className="h-10 w-16 rounded-2xl border border-black/10 bg-white/95 p-1 dark:border-white/20 dark:bg-black/55"
                   />
                 </div>
               </div>

@@ -64,7 +64,7 @@ export function FamilyHeader({
   }, [q, schedule, quickLinks, messages, members]);
 
   return (
-    <header className="sticky top-0 z-20 border-b border-black/5 bg-white/70 backdrop-blur dark:bg-black/65 dark:border-white/20">
+    <header className="sticky top-0 z-20 border-b border-black/5 bg-white/95 backdrop-blur dark:bg-black/65 dark:border-white/20">
       <div className="mx-auto flex max-w-[1400px] items-start justify-between gap-4 px-4 py-3 md:items-center">
         <div className="min-w-0">
           <div className="flex items-center gap-3">
@@ -78,7 +78,7 @@ export function FamilyHeader({
 
         <div className="flex flex-1 items-center justify-end gap-3">
           <div className="relative hidden w-[420px] md:block" aria-live="polite">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40 dark:text-white/85" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/60 dark:text-white/85" />
             <Input
               ref={inputRef}
               className="pl-9"

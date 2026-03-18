@@ -42,7 +42,7 @@ export function KnottWidget() {
 
       <Separator className="my-3" />
 
-      <div className="rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/55">
+      <div className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
         <div className="flex items-center gap-2">
           <MapPin className="h-4 w-4 text-black/60 dark:text-white/85" />
           <div className="text-sm font-medium">{data?.parkName ?? "Knott’s Berry Farm"}</div>

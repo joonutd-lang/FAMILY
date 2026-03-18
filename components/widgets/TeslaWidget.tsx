@@ -76,7 +76,7 @@ export function TeslaWidget() {
       <Separator className="my-3" />
 
       {teslaVehicles.length === 0 ? (
-        <div className="rounded-2xl border border-black/10 bg-white/60 p-4 dark:bg-black/55">
+        <div className="rounded-2xl border border-black/10 bg-white/95 p-4 dark:bg-black/55">
           <div className="text-sm font-semibold">No Tesla vehicles yet</div>
           <div className="mt-1 text-xs text-black/60 dark:text-white/85">`+`를 눌러 차량을 추가해 주세요.</div>
         </div>
@@ -88,7 +88,7 @@ export function TeslaWidget() {
             const battery = st?.batteryPercent ?? 0;
             const range = st?.rangeMiles ?? 0;
             return (
-                <div key={v.id} className="rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/55">
+                <div key={v.id} className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">

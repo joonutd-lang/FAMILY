@@ -96,7 +96,7 @@ export function MarchMadnessWidget() {
       <Separator className="my-3" />
 
       <div className="grid grid-cols-2 gap-2">
-        <div className="rounded-2xl border border-black/10 bg-white/60 p-2 dark:bg-black/55">
+        <div className="rounded-2xl border border-black/10 bg-white/95 p-2 dark:bg-black/55">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-black/60 dark:text-white/85" />
@@ -113,7 +113,7 @@ export function MarchMadnessWidget() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-black/10 bg-white/60 p-2 dark:bg-black/55">
+        <div className="rounded-2xl border border-black/10 bg-white/95 p-2 dark:bg-black/55">
           <div className="text-xs font-semibold text-black/60 dark:text-white/85">Filter</div>
           <div className="mt-2 flex flex-wrap gap-2">
             {(["all", "live", "scheduled", "final"] as const).map((k) => {
@@ -157,7 +157,7 @@ export function MarchMadnessWidget() {
             return (
               <button
                 key={g.id}
-                className="w-full rounded-2xl border border-black/10 bg-white/70 p-3 text-left hover:bg-white/90 dark:bg-black/45 dark:hover:bg-black/30"
+                className="w-full rounded-2xl border border-black/10 bg-white/95 p-3 text-left hover:bg-white dark:bg-black/45 dark:hover:bg-black/30"
                 onClick={() => window.open(g.externalUrl ?? "https://www.espn.com/", "_blank", "noopener,noreferrer")}
               >
                 <div className="flex items-start justify-between gap-3">

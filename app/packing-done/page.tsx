@@ -49,7 +49,7 @@ export default function PackingDonePage() {
       <Separator className="my-4" />
 
       <CardContent className="p-0">
-        <div className="rounded-2xl border border-black/10 bg-white/60 p-5 dark:bg-black/30">
+        <div className="rounded-2xl border border-black/10 bg-white/95 p-5 dark:bg-black/30">
           <div className="text-sm font-semibold">체크된 준비물</div>
           <div className="mt-1 text-xs text-black/60 dark:text-white/60">
             {doneItems.length}/{items.length}개 완료

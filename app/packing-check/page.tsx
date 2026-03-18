@@ -64,7 +64,7 @@ export default function PackingCheckPage() {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="md:col-span-2">
           <CardContent className="p-0">
-            <div className="rounded-2xl border border-black/10 bg-white/60 p-4 dark:bg-black/30">
+              <div className="rounded-2xl border border-black/10 bg-white/95 p-4 dark:bg-black/30">
               <div className="text-sm font-semibold">준비물 목록</div>
               <div className="mt-1 text-xs text-black/60 dark:text-white/60">
                 아이가 직접 입력하고, 아래에서 체크만 해주세요.
@@ -103,7 +103,7 @@ export default function PackingCheckPage() {
                     return (
                       <button
                         key={it.id}
-                        className="w-full rounded-2xl border border-black/10 bg-white/70 p-3 text-left hover:bg-white/90 dark:bg-black/20 dark:hover:bg-black/10"
+                        className="w-full rounded-2xl border border-black/10 bg-white/95 p-3 text-left hover:bg-white dark:bg-black/20 dark:hover:bg-black/10"
                         onClick={() => togglePackingItemChecked({ memberId: activeMemberId, itemId: it.id })}
                       >
                         <div className="flex items-center justify-between gap-3">
@@ -131,7 +131,7 @@ export default function PackingCheckPage() {
         </div>
 
         <div>
-          <div className="rounded-2xl border border-black/10 bg-white/60 p-4 dark:bg-black/30">
+          <div className="rounded-2xl border border-black/10 bg-white/95 p-4 dark:bg-black/30">
             <div className="text-sm font-semibold">다음 단계</div>
             <div className="mt-1 text-xs text-black/60 dark:text-white/60">모든 항목이 체크되면 이동할 수 있어요.</div>
 

@@ -87,7 +87,7 @@ export function FamilyScheduleWidget() {
         </Button>
       </div>
 
-      <div className="mt-3 rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/55">
+      <div className="mt-3 rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
         <div className="flex flex-wrap items-center gap-2">
           {(["today", "7_days", "all"] as ScheduleViewFilter[]).map((k) => (
             <Button
@@ -119,7 +119,7 @@ export function FamilyScheduleWidget() {
                     return (
                       <div
                         key={ev.id}
-                        className="rounded-2xl border border-black/10 bg-white/70 p-3 dark:bg-black/40"
+                        className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/40"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0">
@@ -171,7 +171,7 @@ export function FamilyScheduleWidget() {
                         return (
                             <div
                               key={ev.id}
-                              className="rounded-2xl border border-black/10 bg-white/70 p-3 dark:bg-black/40"
+                              className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/40"
                             >
                             <div className="flex items-start justify-between gap-3">
                               <div className="min-w-0">

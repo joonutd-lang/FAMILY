@@ -85,7 +85,7 @@ export function WorldClockWidget({ compactMode }: { compactMode: boolean }) {
               className={`rounded-2xl border p-3 ${
                 isLocal
                   ? "border-foreground/40 bg-white/90 dark:bg-black/45"
-                  : "border-black/10 bg-white/60 dark:bg-black/45"
+                  : "border-black/10 bg-white/95 dark:bg-black/45"
               }`}
             >
               <div className="flex items-center justify-between gap-2">

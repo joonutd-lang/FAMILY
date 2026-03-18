@@ -52,7 +52,7 @@ export function WeatherWidget() {
       {error ? (
         <div className="text-sm text-red-600">Weather unavailable.</div>
       ) : (
-          <div className="rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/55 h-full flex flex-col">
+          <div className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55 h-full flex flex-col">
           <div className="flex items-start justify-between gap-3">
             <div>
               <div className="text-xs text-black/60 dark:text-white/85">Now</div>
@@ -69,7 +69,7 @@ export function WeatherWidget() {
           </div>
 
           <div className="mt-3 grid grid-cols-2 gap-2">
-            <div className="rounded-2xl border border-black/10 bg-white/70 p-2 dark:bg-black/45">
+            <div className="rounded-2xl border border-black/10 bg-white/95 p-2 dark:bg-black/45">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <Droplets className="h-3.5 w-3.5 text-black/60 dark:text-white/85" />
@@ -78,7 +78,7 @@ export function WeatherWidget() {
                 <div className="text-sm font-semibold">{precipitation === undefined ? "—" : `${precipitation} mm`}</div>
               </div>
             </div>
-            <div className="rounded-2xl border border-black/10 bg-white/70 p-2 dark:bg-black/45">
+            <div className="rounded-2xl border border-black/10 bg-white/95 p-2 dark:bg-black/45">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <Wind className="h-3.5 w-3.5 text-black/60 dark:text-white/85" />

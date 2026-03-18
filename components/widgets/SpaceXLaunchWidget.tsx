@@ -56,17 +56,17 @@ export function SpaceXLaunchWidget() {
         </div>
 
         <div className="mt-3 grid grid-cols-2 gap-2">
-            <div className="rounded-2xl border border-black/10 bg-white/70 p-3 dark:bg-black/55">
+            <div className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
             <div className="text-xs text-black/60 dark:text-white/85">Countdown</div>
             <div className="mt-1 text-lg font-semibold">{launch && netAt ? formatCountdown(netAt.getTime() - now) : "—"}</div>
           </div>
-          <div className="rounded-2xl border border-black/10 bg-white/70 p-3 dark:bg-black/55">
+          <div className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
             <div className="text-xs text-black/60 dark:text-white/85">NET (local)</div>
             <div className="mt-1 text-lg font-semibold">{netAt ? netAt.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }) : "—"}</div>
           </div>
         </div>
 
-        <div className="mt-3 rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/55">
+        <div className="mt-3 rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4 text-black/60 dark:text-white/85" />
             <div className="text-sm font-medium truncate">{launch?.launchSite ?? "—"}</div>

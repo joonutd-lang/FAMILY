@@ -64,7 +64,7 @@ export function NewsWidget() {
           {(items ?? []).map((it) => (
             <button
               key={it.id}
-              className="w-full rounded-2xl border border-black/10 bg-white/70 p-3 text-left text-black hover:bg-white/90 dark:bg-black/45 dark:hover:bg-black/30 dark:text-white/85"
+              className="w-full rounded-2xl border border-black/10 bg-white/95 p-3 text-left text-black hover:bg-white dark:bg-black/45 dark:hover:bg-black/30 dark:text-white/85"
               onClick={() => window.open(it.url, "_blank", "noopener,noreferrer")}
             >
               <div className="flex items-start justify-between gap-3">

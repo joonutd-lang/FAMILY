@@ -87,7 +87,7 @@ export default function MarchMadnessPage() {
       <Separator className="my-4" />
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-        <div className="rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/30">
+        <div className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/30">
           <div className="text-xs font-semibold text-black/60 dark:text-white/60">Date</div>
           <div className="mt-2 flex items-center gap-2">
             <Clock className="h-4 w-4 text-black/60 dark:text-white/60" />
@@ -98,7 +98,7 @@ export default function MarchMadnessPage() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/30">
+        <div className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/30">
           <div className="text-xs font-semibold text-black/60 dark:text-white/60">Status</div>
           <div className="mt-2 flex flex-wrap gap-2">
             {(["all", "live", "scheduled", "final"] as const).map((k) => {
@@ -120,7 +120,7 @@ export default function MarchMadnessPage() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/30">
+        <div className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/30">
           <div className="text-xs font-semibold text-black/60 dark:text-white/60">Totals</div>
           <div className="mt-2 flex items-center justify-between gap-2">
             <div className="text-xs text-black/60 dark:text-white/60">Live</div>
@@ -153,7 +153,7 @@ export default function MarchMadnessPage() {
               return (
                 <button
                   key={g.id}
-                  className="w-full rounded-2xl border border-black/10 bg-white/70 p-3 text-left hover:bg-white/95 dark:bg-black/20 dark:hover:bg-black/10"
+                  className="w-full rounded-2xl border border-black/10 bg-white/95 p-3 text-left hover:bg-white dark:bg-black/20 dark:hover:bg-black/10"
                   onClick={() => window.open(g.externalUrl ?? "https://www.espn.com/", "_blank", "noopener,noreferrer")}
                 >
                   <div className="flex items-start justify-between gap-3">

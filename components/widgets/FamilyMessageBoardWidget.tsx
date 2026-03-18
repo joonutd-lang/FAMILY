@@ -76,7 +76,7 @@ export function FamilyMessageBoardWidget() {
 
       <Separator className="my-3" />
 
-      <div className="rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/55">
+      <div className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
         <div className="text-xs font-semibold text-black/60 dark:text-white/85">Leave a note</div>
         <div className="mt-2 space-y-2">
           <Textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="Type a message… (e.g. snack list, pick-up time, reminders)" />

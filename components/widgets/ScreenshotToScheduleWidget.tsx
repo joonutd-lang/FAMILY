@@ -117,7 +117,7 @@ export function ScreenshotToScheduleWidget() {
         </div>
       </div>
 
-      <div className="mt-3 rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/55">
+      <div className="mt-3 rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
         <div className="flex flex-col gap-2">
           <input
             type="file"
@@ -127,7 +127,7 @@ export function ScreenshotToScheduleWidget() {
           />
 
           {previewUrl ? (
-            <div className="overflow-hidden rounded-2xl border border-black/10 bg-white/70">
+            <div className="overflow-hidden rounded-2xl border border-black/10 bg-white/95">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={previewUrl} alt="Screenshot preview" className="max-h-[240px] w-full object-contain" />
             </div>
@@ -191,7 +191,7 @@ export function ScreenshotToScheduleWidget() {
               <div>
                 <div className="text-xs font-medium text-black/60 dark:text-white/85">Assign to family member</div>
                 <select
-                  className="h-10 mt-1 w-full rounded-2xl border border-black/10 bg-white/70 px-3 text-sm dark:border-white/20 dark:bg-black/55"
+                  className="h-10 mt-1 w-full rounded-2xl border border-black/10 bg-white/95 px-3 text-sm dark:border-white/20 dark:bg-black/55"
                   value={selectedMemberId}
                   onChange={(e) => setSelectedMemberId(e.target.value)}
                 >
