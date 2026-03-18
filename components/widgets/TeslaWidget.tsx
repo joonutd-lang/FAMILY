@@ -58,7 +58,7 @@ export function TeslaWidget() {
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-black/60 dark:text-white/60" />
+            <Zap className="h-4 w-4 text-black/60 dark:text-white/85" />
             <div className="text-sm font-semibold">Tesla Status</div>
           </div>
           <div className="mt-1 text-xs text-black/60 dark:text-white/85">Battery, charging, and estimated range (mock).</div>
@@ -88,7 +88,7 @@ export function TeslaWidget() {
             const battery = st?.batteryPercent ?? 0;
             const range = st?.rangeMiles ?? 0;
             return (
-              <div key={v.id} className="rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/55">
+                <div key={v.id} className="rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/55">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">

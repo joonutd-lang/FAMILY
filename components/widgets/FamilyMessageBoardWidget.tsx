@@ -132,7 +132,11 @@ export function FamilyMessageBoardWidget() {
                   }}
                   aria-label={m.pinned ? "Unpin message" : "Pin message"}
                 >
-                  {m.pinned ? <Pin className="h-4 w-4 text-black/70 dark:text-white/70" /> : <PinOff className="h-4 w-4 text-black/40 dark:text-white/40" />}
+                  {m.pinned ? (
+                    <Pin className="h-4 w-4 text-black/70 dark:text-white/85" />
+                  ) : (
+                    <PinOff className="h-4 w-4 text-black/40 dark:text-white/80" />
+                  )}
                 </Button>
               </div>
 

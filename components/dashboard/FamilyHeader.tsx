@@ -78,7 +78,7 @@ export function FamilyHeader({
 
         <div className="flex flex-1 items-center justify-end gap-3">
           <div className="relative hidden w-[420px] md:block" aria-live="polite">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40 dark:text-white/70" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40 dark:text-white/85" />
             <Input
               ref={inputRef}
               className="pl-9"
@@ -109,7 +109,7 @@ export function FamilyHeader({
                       inputRef.current?.blur();
                     }}
                   >
-                    <div className="mt-0.5 rounded-full bg-black/5 px-2 py-0.5 text-[11px] font-medium text-black/70 dark:bg-white/10 dark:text-white/70">
+                    <div className="mt-0.5 rounded-full bg-black/5 px-2 py-0.5 text-[11px] font-medium text-black/70 dark:bg-white/15 dark:text-white/85">
                       {r.kind}
                     </div>
                     <div className="min-w-0">

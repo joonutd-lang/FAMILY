@@ -65,13 +65,13 @@ export function MarchMadnessWidget() {
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <Trophy className="h-4 w-4 text-black/60 dark:text-white/60" />
+            <Trophy className="h-4 w-4 text-black/60 dark:text-white/85" />
             <div className="text-sm font-semibold">March Madness</div>
             <Badge variant="info" className="rounded-full">
               ESPN
             </Badge>
           </div>
-          <div className="mt-1 text-xs text-black/60 dark:text-white/60">
+          <div className="mt-1 text-xs text-black/60 dark:text-white/85">
             Scores + schedules (NCAA men’s).
           </div>
         </div>
@@ -96,13 +96,13 @@ export function MarchMadnessWidget() {
       <Separator className="my-3" />
 
       <div className="grid grid-cols-2 gap-2">
-        <div className="rounded-2xl border border-black/10 bg-white/60 p-2 dark:bg-black/30">
+        <div className="rounded-2xl border border-black/10 bg-white/60 p-2 dark:bg-black/55">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-black/60 dark:text-white/60" />
-              <div className="text-xs font-semibold text-black/60 dark:text-white/60">Date</div>
+              <Clock className="h-4 w-4 text-black/60 dark:text-white/85" />
+              <div className="text-xs font-semibold text-black/60 dark:text-white/85">Date</div>
             </div>
-            <div className="text-xs text-black/60 dark:text-white/60">{selectedDateIso}</div>
+            <div className="text-xs text-black/60 dark:text-white/85">{selectedDateIso}</div>
           </div>
           <div className="mt-2">
             <Input
@@ -113,8 +113,8 @@ export function MarchMadnessWidget() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-black/10 bg-white/60 p-2 dark:bg-black/30">
-          <div className="text-xs font-semibold text-black/60 dark:text-white/60">Filter</div>
+        <div className="rounded-2xl border border-black/10 bg-white/60 p-2 dark:bg-black/55">
+          <div className="text-xs font-semibold text-black/60 dark:text-white/85">Filter</div>
           <div className="mt-2 flex flex-wrap gap-2">
             {(["all", "live", "scheduled", "final"] as const).map((k) => {
               const isOn = statusFilter === k;
@@ -147,9 +147,9 @@ export function MarchMadnessWidget() {
 
       <div className="space-y-2 overflow-auto pr-1" style={{ maxHeight: 240 }}>
         {isLoading ? (
-          <div className="text-sm text-black/60 dark:text-white/60">Loading…</div>
+          <div className="text-sm text-black/60 dark:text-white/85">Loading…</div>
         ) : top.length === 0 ? (
-          <div className="text-sm text-black/60 dark:text-white/60">No games for this filter.</div>
+          <div className="text-sm text-black/60 dark:text-white/85">No games for this filter.</div>
         ) : (
           top.map((g) => {
             const start = new Date(g.startAt);
@@ -157,7 +157,7 @@ export function MarchMadnessWidget() {
             return (
               <button
                 key={g.id}
-                className="w-full rounded-2xl border border-black/10 bg-white/70 p-3 text-left hover:bg-white/90 dark:bg-black/20 dark:hover:bg-black/10"
+                className="w-full rounded-2xl border border-black/10 bg-white/70 p-3 text-left hover:bg-white/90 dark:bg-black/45 dark:hover:bg-black/30"
                 onClick={() => window.open(g.externalUrl ?? "https://www.espn.com/", "_blank", "noopener,noreferrer")}
               >
                 <div className="flex items-start justify-between gap-3">
@@ -170,7 +170,7 @@ export function MarchMadnessWidget() {
                         {g.homeTeam.abbreviation ?? g.homeTeam.name} vs {g.awayTeam.abbreviation ?? g.awayTeam.name}
                       </div>
                     </div>
-                    <div className="mt-1 text-xs text-black/60 dark:text-white/60">
+                    <div className="mt-1 text-xs text-black/60 dark:text-white/85">
                       {g.status === "final" || g.status === "live" ? (
                         <span className="font-semibold">
                           {g.homeScore ?? "—"} - {g.awayScore ?? "—"}

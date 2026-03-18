@@ -69,7 +69,7 @@ export function QuickLinksWidget() {
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="text-sm font-semibold">Quick Links</div>
-          <div className="mt-1 text-xs text-black/60 dark:text-white/60">Tap a tile for instant access.</div>
+          <div className="mt-1 text-xs text-black/60 dark:text-white/85">Tap a tile for instant access.</div>
         </div>
         <Button className="rounded-full" onClick={startNew}>
           <Plus className="h-4 w-4" />
@@ -83,19 +83,19 @@ export function QuickLinksWidget() {
         {quickLinks.map((l) => {
           const Icon = iconMap[l.icon] ?? LinkIcon;
           return (
-            <div key={l.id} className="relative overflow-hidden rounded-2xl border border-black/10 bg-white/70 p-3 dark:bg-black/20">
+            <div key={l.id} className="relative overflow-hidden rounded-2xl border border-black/10 bg-white/70 p-3 dark:bg-black/45">
               <button
                 className="flex h-full w-full flex-col items-start gap-2 text-left"
                 onClick={() => window.open(l.url, "_blank", "noopener,noreferrer")}
               >
                 <div className="flex items-center justify-between gap-3 w-full">
                   <div className="flex items-center gap-2 min-w-0">
-                    <Icon className="h-4 w-4 text-black/60 dark:text-white/60" />
+                    <Icon className="h-4 w-4 text-black/60 dark:text-white/85" />
                     <div className="min-w-0 truncate text-sm font-semibold">{l.label}</div>
                   </div>
-                  <Badge variant="default" className="bg-black/5 dark:bg-white/10">{l.icon}</Badge>
+                    <Badge variant="default" className="bg-black/5 dark:bg-white/15">{l.icon}</Badge>
                 </div>
-                <div className="mt-auto text-xs text-black/60 dark:text-white/60 line-clamp-2">
+                <div className="mt-auto text-xs text-black/60 dark:text-white/85 line-clamp-2">
                   {l.url}
                 </div>
               </button>
@@ -130,7 +130,7 @@ export function QuickLinksWidget() {
           );
         })}
 
-        {quickLinks.length === 0 ? <div className="col-span-2 text-sm text-black/60 dark:text-white/60">No quick links yet.</div> : null}
+        {quickLinks.length === 0 ? <div className="col-span-2 text-sm text-black/60 dark:text-white/85">No quick links yet.</div> : null}
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -141,27 +141,27 @@ export function QuickLinksWidget() {
           </DialogHeader>
 
           <div className="mt-3 grid grid-cols-1 gap-3">
-            <div>
-              <div className="text-xs font-medium text-black/60 dark:text-white/60">Label</div>
+              <div>
+                <div className="text-xs font-medium text-black/60 dark:text-white/85">Label</div>
               <Input value={label} onChange={(e) => setLabel(e.target.value)} className="mt-1" placeholder="e.g. GameChanger" />
             </div>
             <div>
-              <div className="text-xs font-medium text-black/60 dark:text-white/60">URL</div>
+              <div className="text-xs font-medium text-black/60 dark:text-white/85">URL</div>
               <Input value={url} onChange={(e) => setUrl(e.target.value)} className="mt-1" placeholder="https://..." />
             </div>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               <div>
-                <div className="text-xs font-medium text-black/60 dark:text-white/60">Icon name</div>
+                <div className="text-xs font-medium text-black/60 dark:text-white/85">Icon name</div>
                 <Input value={icon} onChange={(e) => setIcon(e.target.value)} className="mt-1" placeholder="Camera, Ticket, Cloud…" />
               </div>
               <div>
-                <div className="text-xs font-medium text-black/60 dark:text-white/60">Tile color</div>
+                <div className="text-xs font-medium text-black/60 dark:text-white/85">Tile color</div>
                 <div className="mt-1 flex items-center gap-2">
                   <input
                     type="color"
                     value={color}
                     onChange={(e) => setColor(e.target.value)}
-                    className="h-10 w-16 rounded-2xl border border-black/10 bg-white/70 p-1 dark:border-white/10 dark:bg-black/30"
+                    className="h-10 w-16 rounded-2xl border border-black/10 bg-white/70 p-1 dark:border-white/20 dark:bg-black/55"
                   />
                 </div>
               </div>

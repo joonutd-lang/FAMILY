@@ -45,19 +45,19 @@ export function WidgetManagerModal({ open, onOpenChange }: { open: boolean; onOp
             const visible = memberUi?.visible === "visible";
             const collapsed = memberUi?.collapsed ?? widgets[w.key]?.collapsed ?? false;
             return (
-              <div key={w.key} className="rounded-2xl border border-black/10 bg-white/60 p-3 backdrop-blur dark:border-white/10 dark:bg-black/40">
+                <div key={w.key} className="rounded-2xl border border-black/10 bg-white/60 p-3 backdrop-blur dark:border-white/20 dark:bg-black/55">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <div className="truncate text-sm font-semibold">{widgets[w.key]?.title ?? w.key}</div>
-                    <div className="mt-1 text-xs text-black/60 dark:text-white/60">{w.desc}</div>
+                    <div className="mt-1 text-xs text-black/60 dark:text-white/85">{w.desc}</div>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-black/60 dark:text-white/60">On</span>
+                      <span className="text-xs text-black/60 dark:text-white/85">On</span>
                       <Switch checked={visible} onCheckedChange={(v) => setWidgetVisible(w.key, v ? "visible" : "hidden")} />
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-black/60 dark:text-white/60">Collapsed</span>
+                      <span className="text-xs text-black/60 dark:text-white/85">Collapsed</span>
                       <Switch
                         checked={collapsed}
                         disabled={!visible}

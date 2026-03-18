@@ -45,7 +45,7 @@ export function SpaceXLaunchWidget() {
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <Rocket className="h-4 w-4 text-black/60 dark:text-white/60" />
+              <Rocket className="h-4 w-4 text-black/60 dark:text-white/85" />
               <div className="truncate text-sm font-semibold">Next launch</div>
             </div>
             <div className="mt-1 truncate text-base font-semibold">
@@ -56,28 +56,28 @@ export function SpaceXLaunchWidget() {
         </div>
 
         <div className="mt-3 grid grid-cols-2 gap-2">
-          <div className="rounded-2xl border border-black/10 bg-white/70 p-3 dark:bg-black/30">
-            <div className="text-xs text-black/60 dark:text-white/60">Countdown</div>
+            <div className="rounded-2xl border border-black/10 bg-white/70 p-3 dark:bg-black/55">
+            <div className="text-xs text-black/60 dark:text-white/85">Countdown</div>
             <div className="mt-1 text-lg font-semibold">{launch && netAt ? formatCountdown(netAt.getTime() - now) : "—"}</div>
           </div>
-          <div className="rounded-2xl border border-black/10 bg-white/70 p-3 dark:bg-black/30">
-            <div className="text-xs text-black/60 dark:text-white/60">NET (local)</div>
+          <div className="rounded-2xl border border-black/10 bg-white/70 p-3 dark:bg-black/55">
+            <div className="text-xs text-black/60 dark:text-white/85">NET (local)</div>
             <div className="mt-1 text-lg font-semibold">{netAt ? netAt.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }) : "—"}</div>
           </div>
         </div>
 
-        <div className="mt-3 rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/30">
+        <div className="mt-3 rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/55">
           <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-black/60 dark:text-white/60" />
+            <MapPin className="h-4 w-4 text-black/60 dark:text-white/85" />
             <div className="text-sm font-medium truncate">{launch?.launchSite ?? "—"}</div>
           </div>
           {isCaliforniaRelevant ? (
-            <div className="mt-1 text-xs text-black/60 dark:text-white/60 flex items-center gap-2">
+            <div className="mt-1 text-xs text-black/60 dark:text-white/85 flex items-center gap-2">
               <Globe className="h-3.5 w-3.5" />
               Local viewing: California time is especially relevant here.
             </div>
           ) : (
-            <div className="mt-1 text-xs text-black/60 dark:text-white/60">Try World Clock for your local times.</div>
+            <div className="mt-1 text-xs text-black/60 dark:text-white/85">Try World Clock for your local times.</div>
           )}
         </div>
 

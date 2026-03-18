@@ -524,9 +524,10 @@ export const useFamilyHubStore = create<FamilyHubStorePersistedState & ReadOnlyS
           marchMadness: { i: "marchMadness", x: 0, y: 18, w: 6, h: 5, minW: 4, minH: 3 },
         };
 
+        const legacyWidgetLayouts = (state as { widgetLayouts?: Record<WidgetKey, WidgetLayoutItemShape> }).widgetLayouts;
         const widgetLayoutsByMemberId =
           state.widgetLayoutsByMemberId ??
-          Object.fromEntries(members.map((m) => [m.id, (state.widgetLayouts as any) ?? defaultLayouts]));
+          Object.fromEntries(members.map((m) => [m.id, legacyWidgetLayouts ?? defaultLayouts]));
 
         // Tesla is deferred: force it hidden in all persisted dashboards.
         for (const mid of Object.keys(widgetUiByMemberId)) {

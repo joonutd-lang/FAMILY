@@ -55,8 +55,8 @@ export function WorldClockWidget({ compactMode }: { compactMode: boolean }) {
           <Button
             type="button"
             variant="outline"
-            size="icon"
-            className={cn("h-9 w-9 rounded-full", enabled.size === CLOCKS.length && "opacity-60")}
+            size="sm"
+            className={cn("rounded-full", enabled.size === CLOCKS.length && "opacity-60")}
             onClick={() => {
               const disabled = CLOCKS.map((c) => c.id).filter((id) => !enabled.has(id));
               if (disabled.length === 0) return;
@@ -68,6 +68,7 @@ export function WorldClockWidget({ compactMode }: { compactMode: boolean }) {
             aria-label="Add another time zone"
           >
             <Plus className="h-4 w-4" />
+            <span className="text-xs font-semibold">Add</span>
           </Button>
         </div>
       </div>
@@ -83,7 +84,7 @@ export function WorldClockWidget({ compactMode }: { compactMode: boolean }) {
               key={c.id}
               className={`rounded-2xl border p-3 ${
                 isLocal
-                  ? "border-foreground/40 bg-white/90 dark:bg-black/30"
+                  ? "border-foreground/40 bg-white/90 dark:bg-black/45"
                   : "border-black/10 bg-white/60 dark:bg-black/45"
               }`}
             >

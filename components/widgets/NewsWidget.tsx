@@ -30,10 +30,10 @@ export function NewsWidget() {
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <Newspaper className="h-4 w-4 text-black/60 dark:text-white/60" />
+            <Newspaper className="h-4 w-4 text-black/60 dark:text-white/85" />
             <div className="text-sm font-semibold">Top US News</div>
           </div>
-          <div className="mt-1 text-xs text-black/60 dark:text-white/60">Mock headlines with category filter.</div>
+          <div className="mt-1 text-xs text-black/60 dark:text-white/85">Mock headlines with category filter.</div>
         </div>
         <Button variant="ghost" className="rounded-full" onClick={() => refetch()} disabled={isLoading}>
           Refresh
@@ -58,29 +58,29 @@ export function NewsWidget() {
       <Separator className="my-3" />
 
       {isLoading ? (
-        <div className="text-sm text-black/60 dark:text-white/60">Loading headlines…</div>
+        <div className="text-sm text-black/60 dark:text-white/85">Loading headlines…</div>
       ) : (
         <div className="space-y-2">
           {(items ?? []).map((it) => (
             <button
               key={it.id}
-              className="w-full rounded-2xl border border-black/10 bg-white/70 p-3 text-left hover:bg-white/90 dark:bg-black/20 dark:hover:bg-black/10"
+              className="w-full rounded-2xl border border-black/10 bg-white/70 p-3 text-left text-black hover:bg-white/90 dark:bg-black/45 dark:hover:bg-black/30 dark:text-white/85"
               onClick={() => window.open(it.url, "_blank", "noopener,noreferrer")}
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <div className="truncate text-sm font-semibold">{it.title}</div>
-                  <div className="mt-1 text-xs text-black/60 dark:text-white/60 truncate">
+                  <div className="truncate text-sm font-semibold text-black dark:text-white/85">{it.title}</div>
+                  <div className="mt-1 text-xs text-black/60 dark:text-white/85 truncate">
                     {it.source} • {formatDateTimeShort(new Date(it.publishedAt))}
                   </div>
                 </div>
-                <Badge variant="default" className="bg-black/5 dark:bg-white/10">
+                <Badge variant="default" className="bg-black/5 dark:bg-white/15">
                   {it.category}
                 </Badge>
               </div>
             </button>
           ))}
-          {(items ?? []).length === 0 ? <div className="text-sm text-black/60 dark:text-white/60">No news items.</div> : null}
+          {(items ?? []).length === 0 ? <div className="text-sm text-black/60 dark:text-white/85">No news items.</div> : null}
         </div>
       )}
     </CardContent>

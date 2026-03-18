@@ -191,7 +191,7 @@ export function FamilyScheduleWidget() {
                                   ) : null}
                                 </div>
                                 {ev.description ? (
-                                  <div className="mt-2 text-sm text-black/70 dark:text-white/70">{ev.description}</div>
+                                  <div className="mt-2 text-sm text-black/70 dark:text-white/85">{ev.description}</div>
                                 ) : null}
                               </div>
                               <div className="flex items-center gap-2">
