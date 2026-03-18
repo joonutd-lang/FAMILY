@@ -153,12 +153,13 @@ export const sportsService = {
         try {
           const leaguePath = leagueToEspnPath(team.league);
           const espnTeams = await getEspnTeamsForLeague(leaguePath);
-          const espnTeam = espnTeams.find((t) => (t.abbreviation ?? "").toUpperCase() === team.abbreviation.toUpperCase()) ??
-            espnTeams.find((t) => (t.displayName ?? "").toLowerCase().includes(team.name.toLowerCase().slice(0, 6))) ??
-            espnTeams[0];
+          const espnTeam =
+            espnTeams.find((t) => (t.abbreviation ?? "").toUpperCase() === team.abbreviation.toUpperCase()) ??
+            espnTeams.find((t) => (t.displayName ?? "").toLowerCase().includes(team.name.toLowerCase().slice(0, 8)));
 
-          const espnTeamId = espnTeam?.id;
-          if (!espnTeamId) throw new Error("Missing ESPN team id");
+          if (!espnTeam?.id) throw new Error("ESPN team not found for selected team");
+
+          const espnTeamId = espnTeam.id;
 
           // Latest game: search backwards until we find a Final/Live.
           let latestEvent: ESPNEvent | undefined;
