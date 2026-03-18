@@ -25,6 +25,7 @@ export interface SeedData {
   initialTheme: "light" | "dark";
   initialCompactMode: boolean;
   initialWorldClockIds: string[];
+  weatherDefaultLocationLabel: string;
 }
 
 const members: FamilyMember[] = [
@@ -139,6 +140,8 @@ const sportsTeams: SportsTeam[] = [
   { id: "t_lakers", name: "Los Angeles Lakers", abbreviation: "LAL", league: "NBA", color: "#fb7185" },
   { id: "t_patriots", name: "New England Patriots", abbreviation: "NE", league: "NFL", color: "#fbbf24" },
   { id: "t_kings", name: "Sacramento Kings", abbreviation: "SAC", league: "NBA", color: "#34d399" },
+  { id: "t_duke", name: "Duke Blue Devils", abbreviation: "DUKE", league: "NCAA", color: "#60a5fa" },
+  { id: "t_kansas", name: "Kansas Jayhawks", abbreviation: "KU", league: "NCAA", color: "#34d399" },
 ];
 
 const worldClocks: WorldClock[] = [
@@ -155,6 +158,7 @@ const widgets: Record<WidgetKey, WidgetConfig> = {
   messages: { key: "messages", title: "Message Board", visible: "visible", collapsed: false },
   quickLinks: { key: "quickLinks", title: "Quick Links", visible: "visible", collapsed: false },
   knott: { key: "knott", title: "Knott's Berry Farm", visible: "visible", collapsed: false },
+  weather: { key: "weather", title: "Weather", visible: "visible", collapsed: false },
   worldClock: { key: "worldClock", title: "World Clock", visible: "visible", collapsed: false },
   news: { key: "news", title: "Top US News", visible: "visible", collapsed: false },
   tesla: { key: "tesla", title: "Tesla Status", visible: "visible", collapsed: false },
@@ -175,6 +179,7 @@ export const seedData: SeedData = {
   initialTheme: "light",
   initialCompactMode: false,
   initialWorldClockIds: ["wc_california", "wc_korea", "wc_michigan"],
+  weatherDefaultLocationLabel: "California (LA)",
 };
 
 // (Not used directly in the store yet, but useful for services.)

@@ -16,6 +16,7 @@ const WIDGETS: Array<{ key: WidgetKey; desc: string }> = [
   { key: "messages", desc: "Family message board with pins" },
   { key: "quickLinks", desc: "Favorite links in one place" },
   { key: "knott", desc: "Knott’s Berry Farm hours + status" },
+  { key: "weather", desc: "Local weather (mock-free, keyless provider)" },
   { key: "worldClock", desc: "Korea, Michigan, California clocks" },
   { key: "news", desc: "Top US headlines" },
   { key: "tesla", desc: "Tesla battery, charging, and range" },

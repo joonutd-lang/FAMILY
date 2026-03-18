@@ -15,6 +15,7 @@ export type WidgetKey =
   | "messages"
   | "quickLinks"
   | "knott"
+  | "weather"
   | "worldClock"
   | "news"
   | "tesla";
@@ -127,6 +128,18 @@ export interface TeslaStatus {
   batteryPercent: number; // 0..100
   charging: boolean;
   rangeMiles: number;
+  updatedAt: string; // ISO
+}
+
+export interface WeatherStatus {
+  id: string;
+  locationLabel: string;
+  temperatureC: number;
+  feelsLikeC?: number;
+  windKph?: number;
+  precipitationMm?: number;
+  weatherCode: number;
+  description: string;
   updatedAt: string; // ISO
 }
 

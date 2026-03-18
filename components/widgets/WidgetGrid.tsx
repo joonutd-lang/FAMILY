@@ -17,6 +17,7 @@ const ORDER: WidgetKey[] = [
   "messages",
   "quickLinks",
   "knott",
+  "weather",
   "worldClock",
   "news",
   "tesla",

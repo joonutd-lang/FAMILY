@@ -6,7 +6,7 @@ import WidgetGrid from "@/components/widgets/WidgetGrid";
 import { FamilyHeader } from "./FamilyHeader";
 import { SettingsDrawer } from "./SettingsDrawer";
 import { useInterval } from "@/lib/hooks/useInterval";
-import { formatDateTimeShort, getNowIso } from "@/lib/utils/time";
+import { formatDateTimeShort } from "@/lib/utils/time";
 import type { WidgetKey } from "@/types/familyHub";
 
 import { SpaceXLaunchWidget } from "@/components/widgets/SpaceXLaunchWidget";
@@ -16,6 +16,7 @@ import { ScreenshotToScheduleWidget } from "@/components/widgets/ScreenshotToSch
 import { FamilyMessageBoardWidget } from "@/components/widgets/FamilyMessageBoardWidget";
 import { QuickLinksWidget } from "@/components/widgets/QuickLinksWidget";
 import { KnottWidget } from "@/components/widgets/KnottWidget";
+import { WeatherWidget } from "@/components/widgets/WeatherWidget";
 import { WorldClockWidget } from "@/components/widgets/WorldClockWidget";
 import { NewsWidget } from "@/components/widgets/NewsWidget";
 import { TeslaWidget } from "@/components/widgets/TeslaWidget";
@@ -55,6 +56,8 @@ export default function FamilyHubDashboard() {
         return <QuickLinksWidget />;
       case "knott":
         return <KnottWidget />;
+      case "weather":
+        return <WeatherWidget />;
       case "worldClock":
         return <WorldClockWidget compactMode={compactMode} />;
       case "news":
