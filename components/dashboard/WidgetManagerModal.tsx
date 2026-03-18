@@ -11,6 +11,7 @@ import type { WidgetKey } from "@/types/familyHub";
 const WIDGETS: Array<{ key: WidgetKey; desc: string }> = [
   { key: "spacex", desc: "SpaceX next launch, countdown, and local relevance" },
   { key: "sports", desc: "Favorite teams: scores and next games" },
+  { key: "marchMadness", desc: "NCAA March Madness style scores (ESPN)" },
   { key: "schedule", desc: "Family schedule timeline + agenda" },
   { key: "screenshotToSchedule", desc: "Upload screenshots and save events" },
   { key: "messages", desc: "Family message board with pins" },

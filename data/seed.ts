@@ -9,6 +9,8 @@ import type {
   SportsTeam,
   TeslaStatus,
   WorldClock,
+  MarchMadnessGame,
+  MarchMadnessStatus,
 } from "@/types/familyHub";
 import type { WidgetConfig, WidgetKey } from "@/types/familyHub";
 
@@ -159,6 +161,7 @@ const widgets: Record<WidgetKey, WidgetConfig> = {
   quickLinks: { key: "quickLinks", title: "Quick Links", visible: "visible", collapsed: false },
   knott: { key: "knott", title: "Knott's Berry Farm", visible: "visible", collapsed: false },
   weather: { key: "weather", title: "Weather", visible: "visible", collapsed: false },
+  marchMadness: { key: "marchMadness", title: "March Madness", visible: "visible", collapsed: false },
   worldClock: { key: "worldClock", title: "World Clock", visible: "visible", collapsed: false },
   news: { key: "news", title: "Top US News", visible: "visible", collapsed: false },
   tesla: { key: "tesla", title: "Tesla Status", visible: "visible", collapsed: false },

@@ -130,6 +130,7 @@ export const useFamilyHubStore = create<FamilyHubStorePersistedState & ReadOnlyS
         messages: { i: "messages", x: 6, y: 7, w: 6, h: 6, minW: 4, minH: 4 },
         quickLinks: { i: "quickLinks", x: 0, y: 14, w: 6, h: 4, minW: 4, minH: 3 },
         screenshotToSchedule: { i: "screenshotToSchedule", x: 6, y: 13, w: 6, h: 5, minW: 4, minH: 3 },
+        marchMadness: { i: "marchMadness", x: 0, y: 18, w: 6, h: 5, minW: 4, minH: 3 },
       },
 
       messageReadByMember: {
@@ -201,6 +202,7 @@ export const useFamilyHubStore = create<FamilyHubStorePersistedState & ReadOnlyS
             messages: { i: "messages", x: 6, y: 7, w: 6, h: 6, minW: 4, minH: 4 },
             quickLinks: { i: "quickLinks", x: 0, y: 14, w: 6, h: 4, minW: 4, minH: 3 },
             screenshotToSchedule: { i: "screenshotToSchedule", x: 6, y: 13, w: 6, h: 5, minW: 4, minH: 3 },
+            marchMadness: { i: "marchMadness", x: 0, y: 18, w: 6, h: 5, minW: 4, minH: 3 },
           },
         }));
       },

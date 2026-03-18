@@ -16,6 +16,7 @@ export type WidgetKey =
   | "quickLinks"
   | "knott"
   | "weather"
+  | "marchMadness"
   | "worldClock"
   | "news"
   | "tesla";
@@ -141,5 +142,25 @@ export interface WeatherStatus {
   weatherCode: number;
   description: string;
   updatedAt: string; // ISO
+}
+
+export type MarchMadnessStatus = "scheduled" | "final" | "live";
+
+export interface MarchMadnessTeam {
+  id: string; // ESPN team id as string
+  name: string;
+  abbreviation?: string;
+}
+
+export interface MarchMadnessGame {
+  id: string;
+  startAt: string; // ISO
+  status: MarchMadnessStatus;
+  homeTeam: MarchMadnessTeam;
+  awayTeam: MarchMadnessTeam;
+  homeScore?: number;
+  awayScore?: number;
+  venue?: string;
+  externalUrl?: string;
 }
 

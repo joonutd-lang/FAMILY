@@ -12,6 +12,7 @@ import { WidgetShell } from "./WidgetShell";
 const ORDER: WidgetKey[] = [
   "spacex",
   "sports",
+  "marchMadness",
   "schedule",
   "screenshotToSchedule",
   "messages",

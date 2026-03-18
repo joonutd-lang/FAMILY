@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { Search, Settings } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -119,6 +120,12 @@ export function FamilyHeader({ currentTimeLabel, onOpenSettings }: { currentTime
               <Settings className="h-4 w-4" />
               Settings
             </Button>
+
+            <Link href="/march-madness">
+              <Button variant="secondary" className="rounded-full">
+                March Madness
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

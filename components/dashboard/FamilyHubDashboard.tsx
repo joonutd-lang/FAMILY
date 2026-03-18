@@ -11,6 +11,7 @@ import type { WidgetKey } from "@/types/familyHub";
 
 import { SpaceXLaunchWidget } from "@/components/widgets/SpaceXLaunchWidget";
 import { SportsWidget } from "@/components/widgets/SportsWidget";
+import { MarchMadnessWidget } from "@/components/widgets/MarchMadnessWidget";
 import { FamilyScheduleWidget } from "@/components/widgets/FamilyScheduleWidget";
 import { ScreenshotToScheduleWidget } from "@/components/widgets/ScreenshotToScheduleWidget";
 import { FamilyMessageBoardWidget } from "@/components/widgets/FamilyMessageBoardWidget";
@@ -46,6 +47,8 @@ export default function FamilyHubDashboard() {
         return <SpaceXLaunchWidget />;
       case "sports":
         return <SportsWidget />;
+      case "marchMadness":
+        return <MarchMadnessWidget />;
       case "schedule":
         return <FamilyScheduleWidget />;
       case "screenshotToSchedule":
