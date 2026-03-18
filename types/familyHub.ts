@@ -52,6 +52,7 @@ export interface SportsTeam {
   abbreviation: string;
   league: "MLB" | "NBA" | "NFL" | "NHL" | "NCAA" | "WNBA" | "MLS";
   color: string;
+  logoUrl?: string;
 }
 
 export interface SportsGame {
@@ -132,6 +133,12 @@ export interface TeslaStatus {
   updatedAt: string; // ISO
 }
 
+export interface TeslaVehicle {
+  id: string; // internal id
+  nickname: string; // shown in UI
+  vin?: string; // optional identifier for future real API integration
+}
+
 export interface WeatherStatus {
   id: string;
   locationLabel: string;
@@ -162,5 +169,13 @@ export interface MarchMadnessGame {
   awayScore?: number;
   venue?: string;
   externalUrl?: string;
+}
+
+export interface PackingItem {
+  id: string;
+  label: string;
+  addedByMemberId: string;
+  createdAt: string; // ISO
+  checkedByMemberIds: string[]; // per-member completion
 }
 

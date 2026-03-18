@@ -20,8 +20,13 @@ export function WidgetShell({
   children: React.ReactNode;
   collapsedSummary?: React.ReactNode;
 }) {
-  const collapsed = useFamilyHubStore((s) => s.widgets[widgetKey]?.collapsed ?? false);
-  const visible = useFamilyHubStore((s) => s.widgets[widgetKey]?.visible ?? "visible");
+  const activeMemberId = useFamilyHubStore((s) => s.activeMemberId);
+  const widgets = useFamilyHubStore((s) => s.widgets);
+  const widgetUiByMemberId = useFamilyHubStore((s) => s.widgetUiByMemberId);
+  const memberUi = widgetUiByMemberId[activeMemberId]?.[widgetKey];
+
+  const collapsed = memberUi?.collapsed ?? widgets[widgetKey]?.collapsed ?? false;
+  const visible = memberUi?.visible ?? widgets[widgetKey]?.visible ?? "visible";
   const setWidgetCollapsed = useFamilyHubStore((s) => s.setWidgetCollapsed);
   const setWidgetVisible = useFamilyHubStore((s) => s.setWidgetVisible);
 
@@ -31,7 +36,7 @@ export function WidgetShell({
     <Card className="h-full overflow-hidden">
       <div className="flex items-center justify-between gap-2 px-4 py-3">
         <div className="flex min-w-0 items-center gap-2">
-          <div className="widget-drag-handle cursor-grab rounded-full p-1 text-black/50 hover:text-black/80 dark:text-white/60 dark:hover:text-white">
+          <div className="widget-drag-handle cursor-grab rounded-full p-1 text-black/50 hover:text-black/80 dark:text-white/80 dark:hover:text-white/95">
             <GripVertical className="h-4 w-4" />
           </div>
           <div className="min-w-0">
@@ -67,7 +72,7 @@ export function WidgetShell({
       >
         {collapsed ? (
           <div className="flex h-full flex-col gap-2 px-4 pb-4 pt-1">
-            <div className="text-xs text-black/60 dark:text-white/60">Collapsed</div>
+            <div className="text-xs text-black/60 dark:text-white/80">Collapsed</div>
             <div className="text-sm font-medium">{collapsedSummary ?? null}</div>
           </div>
         ) : (

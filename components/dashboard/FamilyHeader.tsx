@@ -14,7 +14,13 @@ type SearchResult =
   | { kind: "Link"; id: string; title: string; widgetKey: "quickLinks"; subtitle?: string }
   | { kind: "Message"; id: string; title: string; widgetKey: "messages"; subtitle?: string };
 
-export function FamilyHeader({ currentTimeLabel, onOpenSettings }: { currentTimeLabel: string; onOpenSettings: () => void }) {
+export function FamilyHeader({
+  currentTimeLabel,
+  onOpenSettings,
+}: {
+  currentTimeLabel: string;
+  onOpenSettings: (tab?: "family" | "widgets" | "appearance" | "time") => void;
+}) {
   const members = useFamilyHubStore((s) => s.members);
   const activeMemberId = useFamilyHubStore((s) => s.activeMemberId);
   const setActiveMemberId = useFamilyHubStore((s) => s.setActiveMemberId);
@@ -22,6 +28,7 @@ export function FamilyHeader({ currentTimeLabel, onOpenSettings }: { currentTime
   const schedule = useFamilyHubStore((s) => s.schedule);
   const quickLinks = useFamilyHubStore((s) => s.quickLinks);
   const messages = useFamilyHubStore((s) => s.messages);
+  const hiddenWidgetCount = useFamilyHubStore((s) => Object.values(s.widgetUiByMemberId[s.activeMemberId] ?? {}).reduce((acc, ui) => (ui.visible === "hidden" ? acc + 1 : acc), 0));
 
   const [q, setQ] = React.useState("");
   const [open, setOpen] = React.useState(false);
@@ -57,21 +64,21 @@ export function FamilyHeader({ currentTimeLabel, onOpenSettings }: { currentTime
   }, [q, schedule, quickLinks, messages, members]);
 
   return (
-    <header className="sticky top-0 z-20 border-b border-black/5 bg-white/70 backdrop-blur dark:bg-black/40 dark:border-white/10">
+    <header className="sticky top-0 z-20 border-b border-black/5 bg-white/70 backdrop-blur dark:bg-black/65 dark:border-white/20">
       <div className="mx-auto flex max-w-[1400px] items-start justify-between gap-4 px-4 py-3 md:items-center">
         <div className="min-w-0">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-2xl bg-gradient-to-br from-sky-400 to-pink-400 shadow-sm" />
             <div className="min-w-0">
               <div className="truncate text-lg font-semibold">Family Hub OS</div>
-              <div className="text-xs text-black/60 dark:text-white/60">{currentTimeLabel}</div>
+              <div className="text-xs text-black/60 dark:text-white/85">{currentTimeLabel}</div>
             </div>
           </div>
         </div>
 
         <div className="flex flex-1 items-center justify-end gap-3">
           <div className="relative hidden w-[420px] md:block" aria-live="polite">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40 dark:text-white/40" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40 dark:text-white/70" />
             <Input
               ref={inputRef}
               className="pl-9"
@@ -88,7 +95,7 @@ export function FamilyHeader({ currentTimeLabel, onOpenSettings }: { currentTime
               }}
             />
             {open && results.length > 0 && (
-              <div className="absolute left-0 right-0 top-[46px] z-30 rounded-2xl border border-black/10 bg-white/95 p-1 shadow-lg backdrop-blur dark:border-white/10 dark:bg-black/80">
+              <div className="absolute left-0 right-0 top-[46px] z-30 rounded-2xl border border-black/10 bg-white/95 p-1 shadow-lg backdrop-blur dark:border-white/20 dark:bg-black/90">
                 {results.map((r) => (
                   <button
                     key={`${r.kind}_${r.id}`}
@@ -107,7 +114,7 @@ export function FamilyHeader({ currentTimeLabel, onOpenSettings }: { currentTime
                     </div>
                     <div className="min-w-0">
                       <div className="truncate text-sm font-medium">{r.title}</div>
-                      {r.subtitle ? <div className="truncate text-xs text-black/60 dark:text-white/60">{r.subtitle}</div> : null}
+                      {r.subtitle ? <div className="truncate text-xs text-black/60 dark:text-white/85">{r.subtitle}</div> : null}
                     </div>
                   </button>
                 ))}
@@ -116,10 +123,21 @@ export function FamilyHeader({ currentTimeLabel, onOpenSettings }: { currentTime
           </div>
 
           <div className="flex items-center gap-3">
-            <Button variant="secondary" className="rounded-full" onClick={onOpenSettings}>
+            <Button variant="secondary" className="rounded-full" onClick={() => onOpenSettings("family")}>
               <Settings className="h-4 w-4" />
               Settings
             </Button>
+
+            {hiddenWidgetCount > 0 ? (
+              <Button
+                variant="outline"
+                className="rounded-full"
+                onClick={() => onOpenSettings("widgets")}
+                aria-label="Restore hidden widgets"
+              >
+                Widgets ({hiddenWidgetCount})
+              </Button>
+            ) : null}
 
             <Link href="/march-madness">
               <Button variant="secondary" className="rounded-full">
@@ -141,7 +159,7 @@ export function FamilyHeader({ currentTimeLabel, onOpenSettings }: { currentTime
           </TabsList>
           {members.map((m) => (
             <TabsContent key={m.id} value={m.id}>
-              <div className="mt-2 text-xs text-black/60 dark:text-white/60">
+              <div className="mt-2 text-xs text-black/60 dark:text-white/85">
                 You’re viewing as <span className="font-medium">{m.name}</span>.
               </div>
             </TabsContent>

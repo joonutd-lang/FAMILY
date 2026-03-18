@@ -17,9 +17,21 @@ import { Textarea } from "@/components/ui/textarea";
 
 type TabKey = "family" | "widgets" | "appearance" | "time";
 
-export function SettingsDrawer({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
+export function SettingsDrawer({
+  open,
+  onOpenChange,
+  initialTab,
+}: {
+  open: boolean;
+  onOpenChange: (v: boolean) => void;
+  initialTab?: TabKey;
+}) {
   const [widgetManagerOpen, setWidgetManagerOpen] = React.useState(false);
-  const [tab, setTab] = React.useState<TabKey>("family");
+  const [tab, setTab] = React.useState<TabKey>(initialTab ?? "family");
+
+  React.useEffect(() => {
+    if (open && initialTab) setTab(initialTab);
+  }, [open, initialTab]);
 
   const theme = useFamilyHubStore((s) => s.theme);
   const setTheme = useFamilyHubStore((s) => s.setTheme);
@@ -37,25 +49,10 @@ export function SettingsDrawer({ open, onOpenChange }: { open: boolean; onOpenCh
   const upsertQuickLink = useFamilyHubStore((s) => s.upsertQuickLink);
   const removeQuickLink = useFamilyHubStore((s) => s.removeQuickLink);
 
-  const worldClockIds = useFamilyHubStore((s) => s.worldClockIds);
-  const setWorldClockIds = useFamilyHubStore((s) => s.setWorldClockIds);
-
   const { data: allTeams } = useQuery({
     queryKey: ["sports:allTeams"],
     queryFn: () => sportsService.getAllTeams(),
   });
-
-  // World clock options are part of seed; keep a stable list for toggles.
-  const worldClockOptions = React.useMemo(() => {
-    // Imported indirectly via store members already persisted, but stable display is fine:
-    // We'll derive from store by union of enabled + all default; for now, use store if available.
-    // Seed defaults in the store widgets.
-    return [
-      { id: "wc_korea", label: "Korea (Seoul)", timeZone: "Asia/Seoul" },
-      { id: "wc_michigan", label: "Michigan (Detroit)", timeZone: "America/Detroit" },
-      { id: "wc_california", label: "California (LA)", timeZone: "America/Los_Angeles" },
-    ];
-  }, []);
 
   const [newMemberName, setNewMemberName] = React.useState("");
   const [newMemberRole, setNewMemberRole] = React.useState<FamilyMember["role"]>("kid");
@@ -71,13 +68,6 @@ export function SettingsDrawer({ open, onOpenChange }: { open: boolean; onOpenCh
     if (set.has(teamId)) set.delete(teamId);
     else set.add(teamId);
     setFavoriteSportsTeamIds(Array.from(set));
-  };
-
-  const toggleClock = (clockId: string) => {
-    const set = new Set(worldClockIds);
-    if (set.has(clockId)) set.delete(clockId);
-    else set.add(clockId);
-    setWorldClockIds(Array.from(set));
   };
 
   return (
@@ -207,16 +197,8 @@ export function SettingsDrawer({ open, onOpenChange }: { open: boolean; onOpenCh
                     <div className="mt-4 space-y-3">
                       <div className="text-sm font-semibold">Time zones</div>
                       <div className="rounded-2xl border border-black/10 bg-white/70 p-3">
-                        <div className="space-y-2">
-                          {worldClockOptions.map((c) => (
-                            <div key={c.id} className="flex items-center justify-between gap-3">
-                              <div>
-                                <div className="text-sm font-medium">{c.label}</div>
-                                <div className="text-xs text-black/60 dark:text-white/60">{c.timeZone}</div>
-                              </div>
-                              <Switch checked={worldClockIds.includes(c.id)} onCheckedChange={() => toggleClock(c.id)} />
-                            </div>
-                          ))}
+                        <div className="text-xs text-black/60 dark:text-white/60">
+                          월드클락은 설정 메뉴가 아니라, <span className="font-medium">World Clock 위젯의 `+` 버튼</span>으로 추가해요.
                         </div>
                       </div>
                     </div>

@@ -5,7 +5,7 @@ import { GridLayout, useContainerWidth, type Layout } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import { useFamilyHubStore } from "@/store/familyHubStore";
-import type { WidgetKey } from "@/types/familyHub";
+import type { WidgetKey, WidgetVisibility } from "@/types/familyHub";
 import type { WidgetLayoutItem } from "@/types/layout";
 import { WidgetShell } from "./WidgetShell";
 
@@ -30,13 +30,19 @@ export default function WidgetGrid({
   renderWidget: (key: WidgetKey) => React.ReactNode;
 }) {
   const widgets = useFamilyHubStore((s) => s.widgets);
-  const widgetLayouts = useFamilyHubStore((s) => s.widgetLayouts);
+  const activeMemberId = useFamilyHubStore((s) => s.activeMemberId);
+  const widgetUiByMemberId = useFamilyHubStore((s) => s.widgetUiByMemberId);
+  const widgetLayoutsByMemberId = useFamilyHubStore((s) => s.widgetLayoutsByMemberId);
   const compactMode = useFamilyHubStore((s) => s.compactMode);
   const setWidgetLayouts = useFamilyHubStore((s) => s.setWidgetLayouts);
 
-  const visibleWidgetKeys = ORDER.filter((k) => widgets[k]?.visible === "visible");
-  const layout = visibleWidgetKeys
-    .map((k) => widgetLayouts[k])
+  const memberUi =
+    widgetUiByMemberId[activeMemberId] ??
+    ({} as Record<WidgetKey, { visible: WidgetVisibility; collapsed: boolean }>);
+
+  const visibleWidgetKeysForMember = ORDER.filter((k) => (memberUi[k]?.visible ?? widgets[k]?.visible) === "visible");
+  const layout = visibleWidgetKeysForMember
+    .map((k) => widgetLayoutsByMemberId[activeMemberId]?.[k])
     .filter(Boolean)
     .map((it) => ({ ...it }));
 
@@ -86,9 +92,9 @@ export default function WidgetGrid({
             setWidgetLayouts(mapped);
           }}
         >
-          {visibleWidgetKeys.map((key) => (
+          {visibleWidgetKeysForMember.map((key) => (
             <div key={key} id={`widget-${key}`} className="px-1">
-              <WidgetShell widgetKey={key} title={widgets[key].title}>
+              <WidgetShell widgetKey={key} title={widgets[key]?.title ?? key}>
                 {renderWidget(key)}
               </WidgetShell>
             </div>

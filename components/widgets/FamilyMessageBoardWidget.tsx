@@ -59,10 +59,10 @@ export function FamilyMessageBoardWidget() {
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <MessageSquareText className="h-4 w-4 text-black/60 dark:text-white/60" />
+            <MessageSquareText className="h-4 w-4 text-black/60 dark:text-white/85" />
             <div className="text-sm font-semibold">Message Board</div>
           </div>
-          <div className="mt-1 text-xs text-black/60 dark:text-white/60">
+          <div className="mt-1 text-xs text-black/60 dark:text-white/85">
             Sticky notes for your family. {unreadCount > 0 ? `${unreadCount} unread` : "All caught up."}
           </div>
         </div>
@@ -76,12 +76,12 @@ export function FamilyMessageBoardWidget() {
 
       <Separator className="my-3" />
 
-      <div className="rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/30">
-        <div className="text-xs font-semibold text-black/60 dark:text-white/60">Leave a note</div>
+      <div className="rounded-2xl border border-black/10 bg-white/60 p-3 dark:bg-black/55">
+        <div className="text-xs font-semibold text-black/60 dark:text-white/85">Leave a note</div>
         <div className="mt-2 space-y-2">
           <Textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="Type a message… (e.g. snack list, pick-up time, reminders)" />
           <div className="flex items-center justify-between gap-3">
-            <div className="text-xs text-black/60 dark:text-white/60">
+            <div className="text-xs text-black/60 dark:text-white/85">
               Posted as {memberById.get(activeMemberId)?.name ?? "Member"}
             </div>
             <Button className="rounded-full" onClick={post} disabled={!content.trim()}>
@@ -117,7 +117,7 @@ export function FamilyMessageBoardWidget() {
                     <div className="truncate text-sm font-semibold">{author?.name ?? "Someone"}</div>
                     {!read ? <Badge variant="info">Unread</Badge> : null}
                   </div>
-                  <div className="mt-1 text-xs text-black/60 dark:text-white/60">
+                  <div className="mt-1 text-xs text-black/60 dark:text-white/85">
                     {formatDateTimeShort(created)}
                   </div>
                 </div>
@@ -139,17 +139,17 @@ export function FamilyMessageBoardWidget() {
               <div className="mt-2 text-sm leading-relaxed">{m.content}</div>
 
               <div className="mt-3 flex items-center justify-between gap-3">
-                <div className="text-xs text-black/60 dark:text-white/60">
+                <div className="text-xs text-black/60 dark:text-white/85">
                   {m.pinned ? "Pinned" : "Tap to mark read"}
                 </div>
-                <div className="text-xs text-black/60 dark:text-white/60">{read ? "Read" : "Unread"}</div>
+                <div className="text-xs text-black/60 dark:text-white/85">{read ? "Read" : "Unread"}</div>
               </div>
             </button>
           );
         })}
 
         {sorted.length === 0 ? (
-          <div className="text-sm text-black/60 dark:text-white/60">No messages yet.</div>
+          <div className="text-sm text-black/60 dark:text-white/85">No messages yet.</div>
         ) : null}
       </div>
     </CardContent>

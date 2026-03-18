@@ -8,6 +8,7 @@ import type {
   ScheduleEvent,
   SportsTeam,
   TeslaStatus,
+  TeslaVehicle,
   WorldClock,
   MarchMadnessGame,
   MarchMadnessStatus,
@@ -24,6 +25,7 @@ export interface SeedData {
   worldClocks: WorldClock[];
   widgets: Record<WidgetKey, WidgetConfig>;
   newsCategories: NewsCategory[];
+  teslaVehicles: TeslaVehicle[];
   initialTheme: "light" | "dark";
   initialCompactMode: boolean;
   initialWorldClockIds: string[];
@@ -31,10 +33,10 @@ export interface SeedData {
 }
 
 const members: FamilyMember[] = [
-  { id: "m_aya", name: "Aya", role: "kid", color: "#60a5fa" },
-  { id: "m_noah", name: "Noah", role: "kid", color: "#34d399" },
-  { id: "m_jen", name: "Jen", role: "parent", color: "#f472b6" },
-  { id: "m_mike", name: "Mike", role: "parent", color: "#fb7185" },
+  { id: "m_aya", name: "Joon", role: "kid", color: "#60a5fa" },
+  { id: "m_noah", name: "Michelle", role: "kid", color: "#34d399" },
+  { id: "m_jen", name: "Rebecca", role: "parent", color: "#f472b6" },
+  { id: "m_mike", name: "Abigail", role: "parent", color: "#fb7185" },
 ];
 
 const now = new Date();
@@ -169,6 +171,34 @@ const widgets: Record<WidgetKey, WidgetConfig> = {
 
 const newsCategories: NewsCategory[] = ["Top", "Politics", "Technology", "Sports", "Health", "Entertainment"];
 
+// (Not used directly in the store yet, but useful for services.)
+export const seedTesla: TeslaStatus = {
+  batteryPercent: 81,
+  charging: false,
+  rangeMiles: 287,
+  updatedAt: new Date().toISOString(),
+};
+
+export const seedTeslaVehicles: TeslaVehicle[] = [
+  { id: "tv_tesla1", nickname: "Tesla 1", vin: "5YJ3E1EA7HF000001" },
+  { id: "tv_tesla2", nickname: "Tesla 2", vin: "5YJ3E1EA7HF000002" },
+];
+
+export const seedTeslaByVehicleId: Record<string, TeslaStatus> = {
+  tv_tesla1: {
+    batteryPercent: 81,
+    charging: false,
+    rangeMiles: 287,
+    updatedAt: new Date().toISOString(),
+  },
+  tv_tesla2: {
+    batteryPercent: 64,
+    charging: true,
+    rangeMiles: 231,
+    updatedAt: new Date().toISOString(),
+  },
+};
+
 export const seedData: SeedData = {
   members,
   schedule,
@@ -179,18 +209,11 @@ export const seedData: SeedData = {
   worldClocks,
   widgets,
   newsCategories,
+  teslaVehicles: seedTeslaVehicles,
   initialTheme: "light",
   initialCompactMode: false,
   initialWorldClockIds: ["wc_california", "wc_korea", "wc_michigan"],
   weatherDefaultLocationLabel: "California (LA)",
-};
-
-// (Not used directly in the store yet, but useful for services.)
-export const seedTesla: TeslaStatus = {
-  batteryPercent: 81,
-  charging: false,
-  rangeMiles: 287,
-  updatedAt: new Date().toISOString(),
 };
 
 export const seedLaunch: LaunchEvent = {

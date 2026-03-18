@@ -29,6 +29,7 @@ interface ESPNTeam {
   displayName?: string;
   shortDisplayName?: string;
   color?: string;
+  logo?: unknown;
 }
 
 type ESPNTeamsResponse = {
@@ -65,6 +66,63 @@ type ESPNScoreboardResponse = {
 
 const teamsCache = new Map<ESPNLeaguePath, Array<ESPNTeam>>();
 const scoreboardCache = new Map<string, ESPNScoreboardResponse>();
+
+let seedTeamsWithLogosCache: { at: number; teams: SportsTeam[] } | null = null;
+
+function getLogoHref(logo: unknown): string | undefined {
+  // ESPN sometimes returns { href: "..." } or a nested object; be defensive.
+  if (!logo) return undefined;
+  if (typeof logo === "string") return logo;
+  if (typeof logo === "object") {
+    const anyLogo = logo as Record<string, unknown>;
+    const href = anyLogo["href"];
+    if (typeof href === "string") return href;
+    const url = anyLogo["url"];
+    if (typeof url === "string") return url;
+  }
+  return undefined;
+}
+
+async function getSeedTeamsWithLogos(): Promise<SportsTeam[]> {
+  if (seedTeamsWithLogosCache && Date.now() - seedTeamsWithLogosCache.at < 60 * 60_000) {
+    return seedTeamsWithLogosCache.teams;
+  }
+
+  const seedTeams = seedData.sportsTeams;
+  const uniqueLeagues = Array.from(new Set(seedTeams.map((t) => t.league)));
+
+  // Build logo maps per ESPN league.
+  const logosByAbbrUpper = new Map<string, string>();
+  const logosByNameLower = new Map<string, string>();
+
+  await Promise.all(
+    uniqueLeagues.map(async (league) => {
+      const leaguePath = leagueToEspnPath(league);
+      const espnTeams = await getEspnTeamsForLeague(leaguePath);
+      for (const et of espnTeams) {
+        const abbr = (et.abbreviation ?? "").toUpperCase();
+        const logoUrl = getLogoHref(et.logo);
+        if (!logoUrl) continue;
+        if (abbr) logosByAbbrUpper.set(`${league}|${abbr}`, logoUrl);
+
+        const nameLower = (et.shortDisplayName ?? et.displayName ?? "").toLowerCase();
+        if (nameLower) logosByNameLower.set(`${league}|${nameLower.slice(0, 16)}`, logoUrl);
+      }
+    }),
+  );
+
+  const enriched = seedTeams.map((t) => {
+    const logoByAbbr = logosByAbbrUpper.get(`${t.league}|${t.abbreviation.toUpperCase()}`);
+    if (logoByAbbr) return { ...t, logoUrl: logoByAbbr };
+
+    const nameLower = t.name.toLowerCase();
+    const logoByName = logosByNameLower.get(`${t.league}|${nameLower.slice(0, 16)}`);
+    return { ...t, logoUrl: logoByName };
+  });
+
+  seedTeamsWithLogosCache = { at: Date.now(), teams: enriched };
+  return enriched;
+}
 
 function toYYYYMMDD(date: Date) {
   const iso = date.toISOString().slice(0, 10);
@@ -124,25 +182,27 @@ function toSportsTeamFallback(params: { league: SportsTeam["league"]; abbreviati
 export const sportsService = {
   async getAllTeams(): Promise<SportsTeam[]> {
     await mockDelay(250);
-    return seedData.sportsTeams;
+    return getSeedTeamsWithLogos();
   },
 
   async searchTeams(query: string): Promise<SportsTeam[]> {
     await mockDelay(250);
     const q = query.trim().toLowerCase();
     if (!q) return seedData.sportsTeams;
-    return seedData.sportsTeams.filter((t) => t.name.toLowerCase().includes(q) || t.abbreviation.toLowerCase().includes(q));
+    const all = await getSeedTeamsWithLogos();
+    return all.filter((t) => t.name.toLowerCase().includes(q) || t.abbreviation.toLowerCase().includes(q));
   },
 
   async getTeamsWidgetData(teamIds: string[]): Promise<Array<{ team: SportsTeam; latestGame: SportsGame; nextGame: SportsGame; opponent: SportsTeam }>> {
     // Small delay to keep loading states consistent with existing UX.
     await mockDelay(350);
 
-    const teamsById = new Map(seedData.sportsTeams.map((t) => [t.id, t]));
+    const seedTeamsWithLogos = await getSeedTeamsWithLogos();
+    const teamsById = new Map(seedTeamsWithLogos.map((t) => [t.id, t]));
     const selected = teamIds.map((id) => teamsById.get(id)).filter(Boolean) as SportsTeam[];
 
     const allTeamsByLeague = new Map<SportsTeam["league"], SportsTeam[]>();
-    for (const t of seedData.sportsTeams) {
+    for (const t of seedTeamsWithLogos) {
       const arr = allTeamsByLeague.get(t.league) ?? [];
       arr.push(t);
       allTeamsByLeague.set(t.league, arr);
@@ -286,7 +346,7 @@ export const sportsService = {
           const now = new Date();
           const latestStart = new Date(now.getTime() - 1000 * 60 * 60 * 3).toISOString();
           const nextStart = new Date(now.getTime() + 1000 * 60 * 60 * 2).toISOString();
-          const fallbackOpponent = seedData.sportsTeams.find((t) => t.id !== team.id) ?? team;
+          const fallbackOpponent = seedTeamsWithLogos.find((t) => t.id !== team.id) ?? team;
           const latestGame: SportsGame = {
             id: `lg_${team.id}`,
             startAt: latestStart,

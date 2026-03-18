@@ -31,6 +31,7 @@ export default function FamilyHubDashboard() {
   const compactMode = useFamilyHubStore((s) => s.compactMode);
 
   const [settingsOpen, setSettingsOpen] = React.useState(false);
+  const [settingsTab, setSettingsTab] = React.useState<"family" | "widgets" | "appearance" | "time">("family");
   const [now, setNow] = React.useState(() => new Date());
 
   useInterval(() => setNow(new Date()), 1000);
@@ -74,13 +75,20 @@ export default function FamilyHubDashboard() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <FamilyHeader currentTimeLabel={getTimeLabel(now)} onOpenSettings={() => setSettingsOpen(true)} />
+      <FamilyHeader
+        currentTimeLabel={getTimeLabel(now)}
+        onOpenSettings={(tab) => {
+          if (tab) setSettingsTab(tab);
+          else setSettingsTab("family");
+          setSettingsOpen(true);
+        }}
+      />
       <main className="flex flex-1 justify-center px-2 py-3">
         <div className="w-full max-w-[1400px]">
           <WidgetGrid renderWidget={renderWidget} />
         </div>
       </main>
-      <SettingsDrawer open={settingsOpen} onOpenChange={setSettingsOpen} />
+      <SettingsDrawer open={settingsOpen} onOpenChange={setSettingsOpen} initialTab={settingsTab} />
     </div>
   );
 }

@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Clock, Flame, Trophy, Sparkles } from "lucide-react";
 import { formatCountdown, formatTimeShort } from "@/lib/utils/time";
+import { useInterval } from "@/lib/hooks/useInterval";
 
 function isoDateInputValue(d: Date) {
   return d.toISOString().slice(0, 10);
@@ -31,6 +32,7 @@ function statusBadgeVariant(status: MarchMadnessStatus) {
 export function MarchMadnessWidget() {
   const [selectedDateIso, setSelectedDateIso] = React.useState<string>(() => isoDateInputValue(new Date()));
   const [statusFilter, setStatusFilter] = React.useState<"all" | MarchMadnessStatus>("all");
+  const [nowMs, setNowMs] = React.useState<number>(0);
 
   const selectedDate = React.useMemo(() => new Date(`${selectedDateIso}T00:00:00`), [selectedDateIso]);
 
@@ -40,6 +42,14 @@ export function MarchMadnessWidget() {
     staleTime: 60_000,
     refetchOnWindowFocus: false,
   });
+
+  React.useEffect(() => {
+    setNowMs(Date.now());
+  }, []);
+
+  useInterval(() => {
+    setNowMs(Date.now());
+  }, 30_000);
 
   const games = (data ?? []) as MarchMadnessGame[];
 
@@ -143,7 +153,7 @@ export function MarchMadnessWidget() {
         ) : (
           top.map((g) => {
             const start = new Date(g.startAt);
-            const countdown = formatCountdown(start.getTime() - Date.now());
+            const countdown = nowMs ? formatCountdown(start.getTime() - nowMs) : "—";
             return (
               <button
                 key={g.id}

@@ -80,7 +80,7 @@ export const marchMadnessService = {
         abbreviation: away.team?.abbreviation,
       };
 
-      const startAt = ev.date ?? (comp as any)?.startDate ?? new Date().toISOString();
+      const startAt = ev.date ?? new Date().toISOString();
       const status: MarchMadnessStatus = statusFromEspnDescription(ev.status?.type?.description);
 
       const externalUrl =

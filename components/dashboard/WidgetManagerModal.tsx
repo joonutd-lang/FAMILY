@@ -24,7 +24,9 @@ const WIDGETS: Array<{ key: WidgetKey; desc: string }> = [
 ];
 
 export function WidgetManagerModal({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
+  const activeMemberId = useFamilyHubStore((s) => s.activeMemberId);
   const widgets = useFamilyHubStore((s) => s.widgets);
+  const widgetUiByMemberId = useFamilyHubStore((s) => s.widgetUiByMemberId);
   const setWidgetVisible = useFamilyHubStore((s) => s.setWidgetVisible);
   const setWidgetCollapsed = useFamilyHubStore((s) => s.setWidgetCollapsed);
   const resetWidgetLayoutsToDefault = useFamilyHubStore((s) => s.resetWidgetLayoutsToDefault);
@@ -39,14 +41,14 @@ export function WidgetManagerModal({ open, onOpenChange }: { open: boolean; onOp
 
         <div className="mt-4 flex max-h-[65vh] flex-col gap-2 overflow-auto pr-1">
           {WIDGETS.map((w) => {
-            const cfg = widgets[w.key];
-            const visible = cfg?.visible === "visible";
-            const collapsed = cfg?.collapsed ?? false;
+            const memberUi = widgetUiByMemberId[activeMemberId]?.[w.key];
+            const visible = memberUi?.visible === "visible";
+            const collapsed = memberUi?.collapsed ?? widgets[w.key]?.collapsed ?? false;
             return (
               <div key={w.key} className="rounded-2xl border border-black/10 bg-white/60 p-3 backdrop-blur dark:border-white/10 dark:bg-black/40">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <div className="truncate text-sm font-semibold">{cfg?.title ?? w.key}</div>
+                    <div className="truncate text-sm font-semibold">{widgets[w.key]?.title ?? w.key}</div>
                     <div className="mt-1 text-xs text-black/60 dark:text-white/60">{w.desc}</div>
                   </div>
                   <div className="flex items-center gap-3">

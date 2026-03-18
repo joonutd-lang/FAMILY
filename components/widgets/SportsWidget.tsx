@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge as UiBadge } from "@/components/ui/badge";
 import { formatTimeShort } from "@/lib/utils/time";
-import { getNowIso } from "@/lib/utils/time";
 import { Star, Ticket, Plus, Minus } from "lucide-react";
 
 function teamScore(game: SportsGame, teamId: string) {
@@ -63,6 +62,27 @@ export function SportsWidget() {
     setFavoriteTeamIds(Array.from(set));
   };
 
+  const TeamEmblem = ({ team }: { team: SportsTeam }) => {
+    if (team.logoUrl) {
+      return (
+        <img
+          src={team.logoUrl}
+          alt={team.abbreviation}
+          className="h-9 w-9 rounded-xl border border-black/10 bg-white/70 p-1 object-contain dark:border-white/10 dark:bg-black/20"
+          loading="lazy"
+        />
+      );
+    }
+    return (
+      <div
+        className="h-9 w-9 rounded-xl border border-black/10 bg-white/70 dark:border-white/10 dark:bg-black/20"
+        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <div className="h-5 w-5 rounded-full" style={{ background: team.color }} />
+      </div>
+    );
+  };
+
   return (
     <CardContent className="h-full">
       <div className="flex items-start justify-between gap-3">
@@ -86,7 +106,7 @@ export function SportsWidget() {
 
         {favoriteTeamIds.length === 0 ? (
           <div className="mt-3 text-sm text-black/60 dark:text-white/60">
-            Add a team below to see scores and next games.
+            아래에서 팀을 `Add`로 추가하면 점수/다음 경기가 보여요.
           </div>
         ) : (
           <div className="mt-3 space-y-2">
@@ -102,9 +122,11 @@ export function SportsWidget() {
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <div className="h-2.5 w-2.5 rounded-full" style={{ background: team.color }} />
-                        <div className="truncate text-sm font-semibold">{team.abbreviation}</div>
-                        <div className="text-xs text-black/60 dark:text-white/60">{team.league}</div>
+                        <TeamEmblem team={team} />
+                        <div className="min-w-0">
+                          <div className="truncate text-sm font-semibold">{team.abbreviation}</div>
+                          <div className="text-xs text-black/60 dark:text-white/60">{team.league}</div>
+                        </div>
                       </div>
                       <div className="mt-2 text-sm">
                         <span className="font-semibold">{latestTeamScore}</span>{" "}
@@ -119,7 +141,11 @@ export function SportsWidget() {
                   <div className="mt-3 rounded-xl bg-white/60 p-2 dark:bg-black/20">
                     <div className="flex items-center justify-between gap-3">
                       <div className="min-w-0">
-                        <div className="truncate text-xs text-black/60 dark:text-white/60">vs {opponent?.abbreviation ?? "Opponent"}</div>
+                        <div className="flex items-center gap-2">
+                          <div className="truncate text-xs text-black/60 dark:text-white/60">
+                            vs {opponent?.abbreviation ?? "Opponent"}
+                          </div>
+                        </div>
                         <div className="truncate text-sm font-medium">
                           {formatTimeShort(nextAt)} • {next.venue ?? "Game"}
                         </div>
@@ -153,24 +179,36 @@ export function SportsWidget() {
           {(pickerTeams ?? []).map((t) => {
             const on = favoriteTeamIds.includes(t.id);
             return (
-              <button
+              <div
                 key={t.id}
                 className={`flex items-center justify-between gap-3 rounded-2xl border px-3 py-2 text-left ${
                   on ? "border-black/20 bg-white/90" : "border-black/10 bg-white/60 hover:bg-white/80"
                 } dark:hover:bg-black/40`}
-                onClick={() => toggleTeamId(t.id)}
               >
                 <div className="min-w-0">
-                  <div className="truncate text-xs font-semibold">
-                    <span className="mr-2 inline-block h-2 w-2 rounded-full" style={{ background: t.color }} />
-                    {t.abbreviation}
+                  <div className="flex items-center gap-2">
+                    <div className="h-7 w-7 rounded-lg border border-black/10 bg-white/70 p-1 dark:border-white/10 dark:bg-black/20">
+                      {t.logoUrl ? (
+                        <img src={t.logoUrl} alt={t.abbreviation} className="h-full w-full rounded-[5px] object-contain" loading="lazy" />
+                      ) : (
+                        <div className="h-4 w-4 rounded-full" style={{ background: t.color }} />
+                      )}
+                    </div>
+                    <div className="truncate text-xs font-semibold">{t.abbreviation}</div>
                   </div>
                   <div className="truncate text-[11px] text-black/60 dark:text-white/60">{t.name}</div>
                 </div>
-                <div className="flex items-center gap-2 text-black/60 dark:text-white/60">
+                <Button
+                  type="button"
+                  size="icon"
+                  variant={on ? "secondary" : "default"}
+                  className="h-9 w-9 rounded-full"
+                  onClick={() => toggleTeamId(t.id)}
+                  aria-label={on ? `Remove ${t.name}` : `Add ${t.name}`}
+                >
                   {on ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
-                </div>
-              </button>
+                </Button>
+              </div>
             );
           })}
         </div>
