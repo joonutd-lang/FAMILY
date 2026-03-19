@@ -16,7 +16,14 @@ const CLOCKS: ClockOpt[] = [
   { id: "wc_korea", label: "Korea (Seoul)", timeZone: "Asia/Seoul" },
   { id: "wc_michigan", label: "Michigan (Detroit)", timeZone: "America/Detroit" },
   { id: "wc_california", label: "California (LA)", timeZone: "America/Los_Angeles" },
+  { id: "wc_newyork", label: "New York (EST)", timeZone: "America/New_York" },
+  { id: "wc_london", label: "London (GMT)", timeZone: "Europe/London" },
+  { id: "wc_tokyo", label: "Tokyo", timeZone: "Asia/Tokyo" },
+  { id: "wc_singapore", label: "Singapore", timeZone: "Asia/Singapore" },
+  { id: "wc_sydney", label: "Sydney", timeZone: "Australia/Sydney" },
 ];
+
+const DEFAULT_CLOCK_IDS = ["wc_korea", "wc_michigan", "wc_california"];
 
 function formatInTZ(date: Date, timeZone: string) {
   const timeFmt = new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit", timeZone });
@@ -27,7 +34,7 @@ function formatInTZ(date: Date, timeZone: string) {
 export function WorldClockWidget({ compactMode }: { compactMode: boolean }) {
   const worldClockIds = useFamilyHubStore((s) => s.worldClockIds);
   const setWorldClockIds = useFamilyHubStore((s) => s.setWorldClockIds);
-  const enabled = worldClockIds.length > 0 ? new Set(worldClockIds) : new Set(CLOCKS.map((c) => c.id));
+  const enabled = worldClockIds.length > 0 ? new Set(worldClockIds) : new Set(DEFAULT_CLOCK_IDS);
 
   const [now, setNow] = React.useState(() => new Date());
   useInterval(() => setNow(new Date()), 30_000);
@@ -48,7 +55,9 @@ export function WorldClockWidget({ compactMode }: { compactMode: boolean }) {
             <Clock className="h-4 w-4 text-black/60 dark:text-white/85" />
             <div className="text-sm font-semibold">World Clock</div>
           </div>
-          <div className="mt-1 text-xs text-black/60 dark:text-white/85">Korea, Michigan, California (configurable).</div>
+          <div className="mt-1 text-xs text-black/60 dark:text-white/85">
+            Default zones. Use <span className="font-semibold">Add</span> (+) to show more.
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <Badge variant="default">{enabled.size} zones</Badge>
@@ -60,7 +69,7 @@ export function WorldClockWidget({ compactMode }: { compactMode: boolean }) {
             onClick={() => {
               const disabled = CLOCKS.map((c) => c.id).filter((id) => !enabled.has(id));
               if (disabled.length === 0) return;
-              const current = worldClockIds.length > 0 ? worldClockIds : [];
+              const current = worldClockIds.length > 0 ? worldClockIds : Array.from(DEFAULT_CLOCK_IDS);
               const next = Array.from(new Set([...current, disabled[0]]));
               setWorldClockIds(next);
             }}

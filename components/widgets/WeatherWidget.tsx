@@ -21,8 +21,11 @@ export function WeatherWidget() {
   const { data, isLoading, refetch, error } = useQuery({
     queryKey: ["weather:default", DEFAULT_LOCATION.latitude, DEFAULT_LOCATION.longitude],
     queryFn: () => weatherService.getWeatherForLocation(DEFAULT_LOCATION),
-    staleTime: 10 * 60_000,
-    refetchOnWindowFocus: false,
+    staleTime: 0,
+    // "Sync" feel: keep weather data updated while the app is open.
+    refetchOnWindowFocus: true,
+    refetchInterval: 2 * 60_000,
+    refetchIntervalInBackground: true,
   });
 
   const wx = data as WeatherStatus | undefined;

@@ -98,15 +98,19 @@ async function getSeedTeamsWithLogos(): Promise<SportsTeam[]> {
   await Promise.all(
     uniqueLeagues.map(async (league) => {
       const leaguePath = leagueToEspnPath(league);
-      const espnTeams = await getEspnTeamsForLeague(leaguePath);
-      for (const et of espnTeams) {
-        const abbr = (et.abbreviation ?? "").toUpperCase();
-        const logoUrl = getLogoHref(et.logo);
-        if (!logoUrl) continue;
-        if (abbr) logosByAbbrUpper.set(`${league}|${abbr}`, logoUrl);
+      try {
+        const espnTeams = await getEspnTeamsForLeague(leaguePath);
+        for (const et of espnTeams) {
+          const abbr = (et.abbreviation ?? "").toUpperCase();
+          const logoUrl = getLogoHref(et.logo);
+          if (!logoUrl) continue;
+          if (abbr) logosByAbbrUpper.set(`${league}|${abbr}`, logoUrl);
 
-        const nameLower = (et.shortDisplayName ?? et.displayName ?? "").toLowerCase();
-        if (nameLower) logosByNameLower.set(`${league}|${nameLower.slice(0, 16)}`, logoUrl);
+          const nameLower = (et.shortDisplayName ?? et.displayName ?? "").toLowerCase();
+          if (nameLower) logosByNameLower.set(`${league}|${nameLower.slice(0, 16)}`, logoUrl);
+        }
+      } catch {
+        // ESPN can block requests from some environments; keep seed teams without logos.
       }
     }),
   );

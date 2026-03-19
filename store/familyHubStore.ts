@@ -481,15 +481,19 @@ export const useFamilyHubStore = create<FamilyHubStorePersistedState & ReadOnlyS
     }),
     {
       name: "family-hub-os:v1",
-      version: 2,
+      version: 3,
       partialize: (s) => s as FamilyHubStorePersistedState & ReadOnlySlice,
-      migrate: (persistedState: unknown, _version: number) => {
+      migrate: (persistedState: unknown, version: number) => {
         // Handle previously persisted state when we introduced per-member widget UI/layout
         // and Tesla vehicle support.
         const state = (persistedState ?? {}) as Partial<FamilyHubStorePersistedState & ReadOnlySlice> & {
           widgetLayouts?: Record<WidgetKey, WidgetLayoutItemShape>;
           // Older versions might have this shape.
         };
+
+        // Users reported that ADD buttons felt broken due to "fully populated" defaults.
+        // For this version, we intentionally clear favorites / selected clocks so the UI is reset blank.
+        const shouldBlankAddState = version < 3;
 
         const members = state.members ?? seedData.members;
         const widgets = state.widgets ?? seedData.widgets;
@@ -539,6 +543,8 @@ export const useFamilyHubStore = create<FamilyHubStorePersistedState & ReadOnlyS
           ...state,
           members,
           widgets,
+          favoriteSportsTeamIds: shouldBlankAddState ? [] : state.favoriteSportsTeamIds ?? seedData.favoriteSportsTeams,
+          worldClockIds: shouldBlankAddState ? [] : state.worldClockIds ?? seedData.initialWorldClockIds,
           widgetUiByMemberId,
           widgetLayoutsByMemberId,
         };

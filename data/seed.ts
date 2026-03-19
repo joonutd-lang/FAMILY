@@ -204,7 +204,8 @@ export const seedData: SeedData = {
   schedule,
   messages,
   quickLinks,
-  favoriteSportsTeams: ["t_warriors", "t_lakers"],
+  // Start "blank" so the user can add teams from the widget UI.
+  favoriteSportsTeams: [],
   sportsTeams,
   worldClocks,
   widgets,
@@ -212,7 +213,8 @@ export const seedData: SeedData = {
   teslaVehicles: seedTeslaVehicles,
   initialTheme: "light",
   initialCompactMode: false,
-  initialWorldClockIds: ["wc_california", "wc_korea", "wc_michigan"],
+  // Start "blank" so World Clock ADD is usable out of the box.
+  initialWorldClockIds: [],
   weatherDefaultLocationLabel: "California (LA)",
 };
 
