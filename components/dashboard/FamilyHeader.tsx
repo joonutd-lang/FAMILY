@@ -95,7 +95,7 @@ export function FamilyHeader({
               }}
             />
             {open && results.length > 0 && (
-              <div className="absolute left-0 right-0 top-[46px] z-30 rounded-2xl border border-black/10 bg-white/95 p-1 shadow-lg backdrop-blur dark:border-white/20 dark:bg-black/90">
+              <div className="absolute left-0 right-0 top-[46px] z-30 rounded-2xl border border-black/20 bg-white/95 p-1 shadow-lg backdrop-blur dark:border-white/20 dark:bg-black/90">
                 {results.map((r) => (
                   <button
                     key={`${r.kind}_${r.id}`}

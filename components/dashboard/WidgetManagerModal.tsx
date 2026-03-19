@@ -45,7 +45,7 @@ export function WidgetManagerModal({ open, onOpenChange }: { open: boolean; onOp
             const visible = memberUi?.visible === "visible";
             const collapsed = memberUi?.collapsed ?? widgets[w.key]?.collapsed ?? false;
             return (
-                <div key={w.key} className="rounded-2xl border border-black/10 bg-white/95 p-3 backdrop-blur dark:border-white/20 dark:bg-black/55">
+                <div key={w.key} className="rounded-2xl border border-black/20 bg-white/95 p-3 backdrop-blur dark:border-white/20 dark:bg-black/55">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <div className="truncate text-sm font-semibold">{widgets[w.key]?.title ?? w.key}</div>

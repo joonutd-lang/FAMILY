@@ -75,7 +75,7 @@ export function SettingsDrawer({
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="max-w-[1080px] p-0 overflow-hidden bg-transparent border-none dark:bg-transparent">
-          <div className="flex h-[85vh] flex-col overflow-hidden rounded-2xl border border-black/10 bg-white/90 backdrop-blur dark:border-white/10 dark:bg-black/70">
+          <div className="flex h-[85vh] flex-col overflow-hidden rounded-2xl border border-black/20 bg-white/90 backdrop-blur dark:border-white/10 dark:bg-black/70">
             <DialogHeader className="px-5 py-4">
               <DialogTitle className="flex items-center gap-2 text-lg">
                 <Settings className="h-5 w-5" />
@@ -87,7 +87,7 @@ export function SettingsDrawer({
             <Separator />
 
             <div className="flex flex-1 overflow-hidden">
-              <div className="w-full md:w-[280px] border-r border-black/10 px-4 py-4">
+              <div className="w-full md:w-[280px] border-r border-black/20 px-4 py-4">
                 <Tabs value={tab} onValueChange={(v) => setTab(v as TabKey)}>
                   <TabsList className="w-full justify-start rounded-2xl bg-black/5 p-1 dark:bg-white/5">
                     <TabsTrigger value="family" className="flex-1 rounded-full"> <Users className="mr-2 h-4 w-4" /> Family</TabsTrigger>
@@ -100,7 +100,7 @@ export function SettingsDrawer({
                       <div className="text-sm font-semibold">Family members</div>
                       <div className="flex flex-col gap-2">
                         {members.map((m) => (
-                          <div key={m.id} className="flex items-center justify-between gap-3 rounded-2xl border border-black/10 bg-white/95 p-3">
+                          <div key={m.id} className="flex items-center justify-between gap-3 rounded-2xl border border-black/20 bg-white/95 p-3">
                             <div className="flex items-center gap-3 min-w-0">
                               <div className="h-9 w-9 rounded-full" style={{ background: m.color }} />
                               <div className="min-w-0">
@@ -113,13 +113,13 @@ export function SettingsDrawer({
                         ))}
                       </div>
 
-                      <div className="rounded-2xl border border-black/10 bg-white/95 p-3">
+                      <div className="rounded-2xl border border-black/20 bg-white/95 p-3">
                         <div className="text-xs font-medium text-black/60 dark:text-white/60">Add member</div>
                         <div className="mt-2 grid grid-cols-1 gap-2">
                           <Input value={newMemberName} onChange={(e) => setNewMemberName(e.target.value)} placeholder="Name" />
                           <div className="flex items-center gap-2">
                             <select
-                              className="h-10 flex-1 rounded-2xl border border-black/10 bg-white/95 px-3 text-sm dark:border-white/10 dark:bg-black/30"
+                              className="h-10 flex-1 rounded-2xl border border-black/20 bg-white/95 px-3 text-sm dark:border-white/10 dark:bg-black/30"
                               value={newMemberRole}
                               onChange={(e) => setNewMemberRole(e.target.value as FamilyMember["role"])}
                             >
@@ -131,7 +131,7 @@ export function SettingsDrawer({
                               type="color"
                               value={newMemberColor}
                               onChange={(e) => setNewMemberColor(e.target.value)}
-                              className="h-10 w-12 rounded-2xl border border-black/10 bg-white/95 p-1 dark:border-white/10 dark:bg-black/30"
+                              className="h-10 w-12 rounded-2xl border border-black/20 bg-white/95 p-1 dark:border-white/10 dark:bg-black/30"
                             />
                           </div>
                           <Button
@@ -154,7 +154,7 @@ export function SettingsDrawer({
                   <TabsContent value="widgets">
                     <div className="mt-4 space-y-3">
                       <div className="text-sm font-semibold">Widgets</div>
-                      <div className="rounded-2xl border border-black/10 bg-white/95 p-3">
+                      <div className="rounded-2xl border border-black/20 bg-white/95 p-3">
                         <div className="text-sm font-medium">Manage visibility & layout</div>
                         <div className="mt-1 text-xs text-black/60 dark:text-white/60">
                           Drag widgets in the main grid. Use the Widget Manager for quick hide/collapse + reset layout.
@@ -169,7 +169,7 @@ export function SettingsDrawer({
                   <TabsContent value="appearance">
                     <div className="mt-4 space-y-3">
                       <div className="text-sm font-semibold">Appearance</div>
-                      <div className="rounded-2xl border border-black/10 bg-white/95 p-3">
+                      <div className="rounded-2xl border border-black/20 bg-white/95 p-3">
                         <div className="flex items-center justify-between gap-3">
                           <div>
                             <div className="text-sm font-medium">Theme</div>
@@ -182,7 +182,7 @@ export function SettingsDrawer({
                           </div>
                         </div>
                       </div>
-                      <div className="rounded-2xl border border-black/10 bg-white/95 p-3">
+                      <div className="rounded-2xl border border-black/20 bg-white/95 p-3">
                         <div className="flex items-center justify-between gap-3">
                           <div>
                             <div className="text-sm font-medium">Compact mode</div>
@@ -197,7 +197,7 @@ export function SettingsDrawer({
                   <TabsContent value="time">
                     <div className="mt-4 space-y-3">
                       <div className="text-sm font-semibold">Time zones</div>
-                      <div className="rounded-2xl border border-black/10 bg-white/95 p-3">
+                      <div className="rounded-2xl border border-black/20 bg-white/95 p-3">
                         <div className="text-xs text-black/60 dark:text-white/60">
                           월드클락은 설정 메뉴가 아니라, <span className="font-medium">World Clock 위젯의 `+` 버튼</span>으로 추가해요.
                         </div>
@@ -229,7 +229,7 @@ export function SettingsDrawer({
                             <button
                               key={t.id}
                               className={`flex items-center justify-between gap-3 rounded-2xl border px-3 py-2 text-left ${
-                                on ? "border-black/15 bg-white/90" : "border-black/10 bg-white/95 hover:bg-white/90"
+                                on ? "border-black/15 bg-white/90" : "border-black/20 bg-white/95 hover:bg-white/90"
                               } dark:hover:bg-black/40`}
                               onClick={() => toggleTeam(t.id)}
                             >
@@ -254,7 +254,7 @@ export function SettingsDrawer({
                       </div>
                       <div className="space-y-2">
                         {quickLinks.map((l) => (
-                          <div key={l.id} className="flex items-center justify-between gap-3 rounded-2xl border border-black/10 bg-white/95 p-3">
+                          <div key={l.id} className="flex items-center justify-between gap-3 rounded-2xl border border-black/20 bg-white/95 p-3">
                             <div className="min-w-0 flex items-center gap-3">
                               <div className="h-9 w-9 rounded-full" style={{ background: l.color }} />
                               <div className="min-w-0">
@@ -269,7 +269,7 @@ export function SettingsDrawer({
                         ))}
                       </div>
 
-                      <div className="rounded-2xl border border-black/10 bg-white/95 p-3">
+                      <div className="rounded-2xl border border-black/20 bg-white/95 p-3">
                         <div className="text-xs font-medium text-black/60 dark:text-white/60">Add link</div>
                         <div className="mt-2 grid grid-cols-1 gap-2">
                           <Input value={newLinkLabel} onChange={(e) => setNewLinkLabel(e.target.value)} placeholder="Label (e.g. GameChanger)" />
@@ -281,7 +281,7 @@ export function SettingsDrawer({
                               type="color"
                               value={newLinkColor}
                               onChange={(e) => setNewLinkColor(e.target.value)}
-                              className="h-10 w-12 rounded-2xl border border-black/10 bg-white/95 p-1 dark:border-white/10 dark:bg-black/30"
+                              className="h-10 w-12 rounded-2xl border border-black/20 bg-white/95 p-1 dark:border-white/10 dark:bg-black/30"
                             />
                           </div>
                           <Button

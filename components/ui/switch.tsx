@@ -10,7 +10,7 @@ export const Switch = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SwitchPrimitive.Root
     className={cn(
-      "relative h-6 w-11 cursor-pointer rounded-full border border-black/10 bg-black/5 shadow-sm transition-colors data-[state=checked]:bg-foreground data-[state=checked]:border-foreground dark:border-white/20 dark:bg-white/15 dark:data-[state=checked]:bg-white",
+      "relative h-6 w-11 cursor-pointer rounded-full border border-black/20 bg-black/5 shadow-sm transition-colors data-[state=checked]:bg-foreground data-[state=checked]:border-foreground dark:border-white/20 dark:bg-white/15 dark:data-[state=checked]:bg-white",
       className,
     )}
     {...props}
