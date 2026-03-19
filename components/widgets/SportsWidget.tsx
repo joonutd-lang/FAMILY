@@ -29,6 +29,9 @@ export function SportsWidget() {
   const setFavoriteTeamIds = useFamilyHubStore((s) => s.setFavoriteSportsTeamIds);
 
   const [pickerQ, setPickerQ] = React.useState("");
+  const [pickerOpen, setPickerOpen] = React.useState(false); // Mobile: hidden until the top button is tapped.
+  const [leagueFilter, setLeagueFilter] = React.useState<"All" | SportsTeam["league"]>("All");
+  const pickerSectionRef = React.useRef<HTMLDivElement | null>(null);
 
   const { data: allTeams } = useQuery({
     queryKey: ["sports:allTeamsForWidget"],
@@ -49,11 +52,12 @@ export function SportsWidget() {
   const pickerTeams = React.useMemo(() => {
     const teams = allTeams ?? [];
     const q = pickerQ.trim().toLowerCase();
+    const leagueFiltered = leagueFilter === "All" ? teams : teams.filter((t) => t.league === leagueFilter);
     const filtered = !q
-      ? teams
-      : teams.filter((t) => t.name.toLowerCase().includes(q) || t.abbreviation.toLowerCase().includes(q));
-    return filtered.slice(0, 8);
-  }, [allTeams, pickerQ]);
+      ? leagueFiltered
+      : leagueFiltered.filter((t) => t.name.toLowerCase().includes(q) || t.abbreviation.toLowerCase().includes(q));
+    return filtered.slice(0, 12);
+  }, [allTeams, pickerQ, leagueFilter]);
 
   const toggleTeamId = (id: string) => {
     const set = new Set(favoriteTeamIds);
@@ -93,9 +97,22 @@ export function SportsWidget() {
           </div>
           <div className="mt-1 text-xs text-black/80 dark:text-white/85">Pick favorite teams. Scores + next games.</div>
         </div>
-        <Button variant="ghost" className="rounded-full" onClick={() => refetch()} disabled={selectedTeamIds.length === 0}>
-          Refresh
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" className="rounded-full" onClick={() => refetch()} disabled={selectedTeamIds.length === 0}>
+            Refresh
+          </Button>
+          <Button
+            variant="outline"
+            className="rounded-full sm:hidden"
+            onClick={() => {
+              setPickerOpen(true);
+              // Best-effort: jump to picker so mobile users can add immediately.
+              pickerSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+          >
+            Add teams
+          </Button>
+        </div>
       </div>
 
       <div className="mt-3 rounded-2xl border border-black/20 bg-white/95 p-3 dark:bg-black/55">
@@ -167,51 +184,72 @@ export function SportsWidget() {
           </div>
         )}
 
-        <div className="mt-3 flex items-center gap-2">
-          <Input
-            value={pickerQ}
-            onChange={(e) => setPickerQ(e.target.value)}
-            placeholder="Search teams (e.g. Warriors, Lakers)"
-          />
-        </div>
-
-        <div className="mt-3 grid grid-cols-2 gap-2">
-          {(pickerTeams ?? []).map((t) => {
-            const on = favoriteTeamIds.includes(t.id);
-            return (
-              <div
-                key={t.id}
-                className={`flex items-center justify-between gap-3 rounded-2xl border px-3 py-2 text-left ${
-                  on ? "border-black/20 bg-white/90" : "border-black/20 bg-white/95 hover:bg-white/90"
-                } dark:hover:bg-black/55`}
+        <div
+          ref={pickerSectionRef}
+          className={`${pickerOpen ? "block" : "hidden"} sm:block mt-3`}
+        >
+          <div className="space-y-2 sm:space-y-2">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+              <select
+                className="h-10 flex-1 rounded-2xl border border-black/20 bg-white/95 px-3 text-sm dark:border-white/10 dark:bg-black/30"
+                value={leagueFilter}
+                onChange={(e) => setLeagueFilter(e.target.value as "All" | SportsTeam["league"])}
+                aria-label="Filter by league"
               >
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <div className="h-7 w-7 rounded-lg border border-black/20 bg-white/95 p-1 dark:border-white/20 dark:bg-black/45">
-                      {t.logoUrl ? (
-                        <img src={t.logoUrl} alt={t.abbreviation} className="h-full w-full rounded-[5px] object-contain" loading="lazy" />
-                      ) : (
-                        <div className="h-4 w-4 rounded-full" style={{ background: t.color }} />
-                      )}
+                <option value="All">All leagues</option>
+                <option value="NBA">NBA</option>
+                <option value="NFL">NFL</option>
+                <option value="NCAA">NCAA</option>
+              </select>
+
+              <Input
+                value={pickerQ}
+                onChange={(e) => setPickerQ(e.target.value)}
+                placeholder="Search teams (e.g. Warriors, Lakers)"
+                className="sm:flex-1"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {(pickerTeams ?? []).map((t) => {
+                const on = favoriteTeamIds.includes(t.id);
+                return (
+                  <div
+                    key={t.id}
+                    className={`flex items-center justify-between gap-3 rounded-2xl border px-3 py-2 text-left ${
+                      on ? "border-black/20 bg-white/90" : "border-black/20 bg-white/95 hover:bg-white/90"
+                    } dark:hover:bg-black/55`}
+                  >
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <div className="h-7 w-7 rounded-lg border border-black/20 bg-white/95 p-1 dark:border-white/20 dark:bg-black/45">
+                          {t.logoUrl ? (
+                            <img src={t.logoUrl} alt={t.abbreviation} className="h-full w-full rounded-[5px] object-contain" loading="lazy" />
+                          ) : (
+                            <div className="h-4 w-4 rounded-full" style={{ background: t.color }} />
+                          )}
+                        </div>
+                        <div className="truncate text-xs font-semibold">{t.abbreviation}</div>
+                      </div>
+                      <div className="truncate text-[11px] text-black/80 dark:text-white/85">{t.name}</div>
                     </div>
-                    <div className="truncate text-xs font-semibold">{t.abbreviation}</div>
+
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant={on ? "secondary" : "default"}
+                      className="rounded-full"
+                      onClick={() => toggleTeamId(t.id)}
+                      aria-label={on ? `Remove ${t.name}` : `Add ${t.name}`}
+                    >
+                      {on ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                      <span>{on ? "Remove" : "Add"}</span>
+                    </Button>
                   </div>
-                  <div className="truncate text-[11px] text-black/80 dark:text-white/85">{t.name}</div>
-                </div>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant={on ? "secondary" : "default"}
-                  className="rounded-full"
-                  onClick={() => toggleTeamId(t.id)}
-                  aria-label={on ? `Remove ${t.name}` : `Add ${t.name}`}
-                >
-                  {on ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
-                  <span>{on ? "Remove" : "Add"}</span>
-                </Button>
-              </div>
-            );
-          })}
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </CardContent>
