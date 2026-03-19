@@ -95,6 +95,9 @@ export interface FamilyHubActions {
 
   setNewsCategory: (category: NewsCategory) => void;
 
+  // User-facing "blank setup" for broken/old persisted state
+  resetDashboardSetup: () => void;
+
   // Quick links
   upsertQuickLink: (link: QuickLink) => void;
   removeQuickLink: (id: string) => void;
@@ -235,6 +238,13 @@ export const useFamilyHubStore = create<FamilyHubStorePersistedState & ReadOnlyS
       setFavoriteSportsTeamIds: (ids) => set({ favoriteSportsTeamIds: ids }),
       setWorldClockIds: (ids) => set({ worldClockIds: ids }),
       setNewsCategory: (category) => set({ newsCategory: category }),
+
+      resetDashboardSetup: () =>
+        set({
+          favoriteSportsTeamIds: [],
+          worldClockIds: [],
+          newsCategory: "Top",
+        }),
 
       setWidgetVisible: (key, visible) =>
         set((s) => {

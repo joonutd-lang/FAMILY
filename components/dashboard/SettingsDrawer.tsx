@@ -48,6 +48,7 @@ export function SettingsDrawer({
   const quickLinks = useFamilyHubStore((s) => s.quickLinks);
   const upsertQuickLink = useFamilyHubStore((s) => s.upsertQuickLink);
   const removeQuickLink = useFamilyHubStore((s) => s.removeQuickLink);
+  const resetDashboardSetup = useFamilyHubStore((s) => s.resetDashboardSetup);
 
   const { data: allTeams } = useQuery({
     queryKey: ["sports:allTeams"],
@@ -313,7 +314,17 @@ export function SettingsDrawer({
                       <div className="text-xs text-black/60 dark:text-white/60">
                         Use drag handles on each widget’s top-left. Resize from widget edges. This layout will persist in your browser.
                       </div>
-                      <Button className="rounded-full" onClick={() => setWidgetManagerOpen(true)}>Manage widgets</Button>
+                      <Button className="rounded-full" onClick={() => setWidgetManagerOpen(true)}>
+                        Manage widgets
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="rounded-full"
+                        onClick={() => resetDashboardSetup()}
+                        aria-label="Reset sports teams and world clock to blank"
+                      >
+                        Reset Sports + World Clock (blank)
+                      </Button>
                     </div>
                   </TabsContent>
 
