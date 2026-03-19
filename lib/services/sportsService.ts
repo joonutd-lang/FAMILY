@@ -69,6 +69,15 @@ const scoreboardCache = new Map<string, ESPNScoreboardResponse>();
 
 let seedTeamsWithLogosCache: { at: number; teams: SportsTeam[] } | null = null;
 
+const SUPPORTED_LEAGUES: SportsTeam["league"][] = ["NBA", "NFL", "NCAA"];
+
+function stableColorForKey(key: string) {
+  const palette = ["#60a5fa", "#34d399", "#f472b6", "#fb7185", "#fbbf24", "#a78bfa", "#22c55e", "#0ea5e9"];
+  let h = 0;
+  for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
+  return palette[h % palette.length] ?? "#9ca3af";
+}
+
 function getLogoHref(logo: unknown): string | undefined {
   // ESPN sometimes returns { href: "..." } or a nested object; be defensive.
   if (!logo) return undefined;
@@ -89,43 +98,57 @@ async function getSeedTeamsWithLogos(): Promise<SportsTeam[]> {
   }
 
   const seedTeams = seedData.sportsTeams;
-  const uniqueLeagues = Array.from(new Set(seedTeams.map((t) => t.league)));
+  const seedByLeagueAndAbbrUpper = new Map<string, SportsTeam>();
+  for (const t of seedTeams) {
+    const abbrUpper = t.abbreviation?.toUpperCase();
+    if (!abbrUpper) continue;
+    seedByLeagueAndAbbrUpper.set(`${t.league}|${abbrUpper}`, t);
+  }
 
-  // Build logo maps per ESPN league.
-  const logosByAbbrUpper = new Map<string, string>();
-  const logosByNameLower = new Map<string, string>();
+  const teams: SportsTeam[] = [];
+  const seen = new Set<string>();
 
   await Promise.all(
-    uniqueLeagues.map(async (league) => {
+    SUPPORTED_LEAGUES.map(async (league) => {
       const leaguePath = leagueToEspnPath(league);
       try {
         const espnTeams = await getEspnTeamsForLeague(leaguePath);
         for (const et of espnTeams) {
-          const abbr = (et.abbreviation ?? "").toUpperCase();
-          const logoUrl = getLogoHref(et.logo);
-          if (!logoUrl) continue;
-          if (abbr) logosByAbbrUpper.set(`${league}|${abbr}`, logoUrl);
+          const abbr = (et.abbreviation ?? et.shortDisplayName ?? et.displayName ?? "").trim();
+          const abbrUpper = abbr.toUpperCase();
+          if (!abbrUpper) continue;
 
-          const nameLower = (et.shortDisplayName ?? et.displayName ?? "").toLowerCase();
-          if (nameLower) logosByNameLower.set(`${league}|${nameLower.slice(0, 16)}`, logoUrl);
+          const seedMatch = seedByLeagueAndAbbrUpper.get(`${league}|${abbrUpper}`);
+          const id = seedMatch?.id ?? `espn_${league}_${abbrUpper}`;
+
+          if (seen.has(id)) continue;
+          seen.add(id);
+
+          const logoUrl = getLogoHref(et.logo);
+          const name = et.shortDisplayName ?? et.displayName ?? seedMatch?.name ?? abbrUpper;
+
+          teams.push({
+            id,
+            name,
+            abbreviation: et.abbreviation ?? abbrUpper,
+            league,
+            color: seedMatch?.color ?? stableColorForKey(`${league}|${abbrUpper}`),
+            ...(logoUrl ? { logoUrl } : {}),
+          });
         }
       } catch {
-        // ESPN can block requests from some environments; keep seed teams without logos.
+        // If ESPN is blocked for a league, skip it (we'll fall back to seed teams).
       }
     }),
   );
 
-  const enriched = seedTeams.map((t) => {
-    const logoByAbbr = logosByAbbrUpper.get(`${t.league}|${t.abbreviation.toUpperCase()}`);
-    if (logoByAbbr) return { ...t, logoUrl: logoByAbbr };
+  if (teams.length === 0) {
+    seedTeamsWithLogosCache = { at: Date.now(), teams: seedTeams };
+    return seedTeams;
+  }
 
-    const nameLower = t.name.toLowerCase();
-    const logoByName = logosByNameLower.get(`${t.league}|${nameLower.slice(0, 16)}`);
-    return { ...t, logoUrl: logoByName };
-  });
-
-  seedTeamsWithLogosCache = { at: Date.now(), teams: enriched };
-  return enriched;
+  seedTeamsWithLogosCache = { at: Date.now(), teams };
+  return teams;
 }
 
 function toYYYYMMDD(date: Date) {
