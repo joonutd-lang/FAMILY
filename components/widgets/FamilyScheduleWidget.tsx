@@ -73,7 +73,7 @@ export function FamilyScheduleWidget() {
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="text-sm font-semibold">Family Schedule</div>
-          <div className="mt-1 text-xs text-black/60 dark:text-white/85">
+          <div className="mt-1 text-xs text-black/80 dark:text-white/85">
             캡쳐/사진으로 일정 추가 → 자동으로 여기서 보이게 해요.
           </div>
         </div>
@@ -87,7 +87,7 @@ export function FamilyScheduleWidget() {
         </Button>
       </div>
 
-      <div className="mt-3 rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
+      <div className="mt-3 rounded-2xl border border-black/20 bg-white/95 p-3 dark:bg-black/55">
         <div className="flex flex-wrap items-center gap-2">
           {(["today", "7_days", "all"] as ScheduleViewFilter[]).map((k) => (
             <Button
@@ -110,7 +110,7 @@ export function FamilyScheduleWidget() {
 
             <TabsContent value="timeline">
               {visibleEvents.length === 0 ? (
-                <div className="mt-3 text-sm text-black/60 dark:text-white/85">No events in this range.</div>
+                <div className="mt-3 text-sm text-black/80 dark:text-white/85">No events in this range.</div>
               ) : (
                 <div className="mt-3 space-y-2">
                   {visibleEvents.map((ev) => {
@@ -119,7 +119,7 @@ export function FamilyScheduleWidget() {
                     return (
                       <div
                         key={ev.id}
-                        className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/40"
+                        className="rounded-2xl border border-black/20 bg-white/95 p-3 dark:bg-black/40"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0">
@@ -130,7 +130,7 @@ export function FamilyScheduleWidget() {
                               />
                               <div className="text-sm font-semibold truncate">{ev.title}</div>
                             </div>
-                            <div className="mt-1 text-xs text-black/60 dark:text-white/85 flex items-center gap-2">
+                            <div className="mt-1 text-xs text-black/80 dark:text-white/85 flex items-center gap-2">
                               <span>{formatTimeShort(start)}</span>
                               {ev.parsed ? <Badge variant="info">Parsed</Badge> : null}
                               {ev.description ? <span className="truncate">{ev.description}</span> : null}
@@ -157,12 +157,12 @@ export function FamilyScheduleWidget() {
 
             <TabsContent value="agenda">
               {groupedByDate.length === 0 ? (
-                <div className="mt-3 text-sm text-black/60 dark:text-white/85">No events in this range.</div>
+                <div className="mt-3 text-sm text-black/80 dark:text-white/85">No events in this range.</div>
               ) : (
                 <div className="mt-3 space-y-3">
                   {groupedByDate.map(([dateIso, events]) => (
                     <div key={dateIso} className="space-y-2">
-                      <div className="text-xs font-semibold text-black/60 dark:text-white/85">
+                      <div className="text-xs font-semibold text-black/80 dark:text-white/85">
                         {formatDateShort(new Date(dateIso))}
                       </div>
                       {events.map((ev) => {
@@ -171,7 +171,7 @@ export function FamilyScheduleWidget() {
                         return (
                             <div
                               key={ev.id}
-                              className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/40"
+                              className="rounded-2xl border border-black/20 bg-white/95 p-3 dark:bg-black/40"
                             >
                             <div className="flex items-start justify-between gap-3">
                               <div className="min-w-0">
@@ -182,7 +182,7 @@ export function FamilyScheduleWidget() {
                                   />
                                   <div className="truncate text-sm font-semibold">{ev.title}</div>
                                 </div>
-                                <div className="mt-1 text-xs text-black/60 dark:text-white/85">
+                                <div className="mt-1 text-xs text-black/80 dark:text-white/85">
                                   {formatTimeShort(start)} {ev.endAt ? `• ${formatTimeShort(new Date(ev.endAt))}` : ""}
                                   {ev.parsed ? (
                                     <span className="ml-2">
@@ -219,7 +219,7 @@ export function FamilyScheduleWidget() {
 
         <Separator className="my-3" />
 
-        <div className="text-xs text-black/60 dark:text-white/85">
+        <div className="text-xs text-black/80 dark:text-white/85">
           Tip: `Capture`를 누르고 사진/캡쳐를 올리면, 모의 OCR 결과를 보여준 다음 저장할 수 있어요.
         </div>
       </div>

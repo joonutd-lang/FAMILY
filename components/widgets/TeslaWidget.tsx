@@ -58,10 +58,10 @@ export function TeslaWidget() {
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-black/60 dark:text-white/85" />
+            <Zap className="h-4 w-4 text-black/80 dark:text-white/85" />
             <div className="text-sm font-semibold">Tesla Status</div>
           </div>
-          <div className="mt-1 text-xs text-black/60 dark:text-white/85">Battery, charging, and estimated range (mock).</div>
+          <div className="mt-1 text-xs text-black/80 dark:text-white/85">Battery, charging, and estimated range (mock).</div>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="ghost" className="rounded-full" onClick={() => refetch()} disabled={isLoading || vehicleIds.length === 0}>
@@ -76,9 +76,9 @@ export function TeslaWidget() {
       <Separator className="my-3" />
 
       {teslaVehicles.length === 0 ? (
-        <div className="rounded-2xl border border-black/10 bg-white/95 p-4 dark:bg-black/55">
+        <div className="rounded-2xl border border-black/20 bg-white/95 p-4 dark:bg-black/55">
           <div className="text-sm font-semibold">No Tesla vehicles yet</div>
-          <div className="mt-1 text-xs text-black/60 dark:text-white/85">`+`를 눌러 차량을 추가해 주세요.</div>
+          <div className="mt-1 text-xs text-black/80 dark:text-white/85">`+`를 눌러 차량을 추가해 주세요.</div>
         </div>
       ) : (
         <div className="space-y-2">
@@ -88,16 +88,16 @@ export function TeslaWidget() {
             const battery = st?.batteryPercent ?? 0;
             const range = st?.rangeMiles ?? 0;
             return (
-                <div key={v.id} className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
+                <div key={v.id} className="rounded-2xl border border-black/20 bg-white/95 p-3 dark:bg-black/55">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <Car className="h-4 w-4 text-black/60 dark:text-white/85" />
+                      <Car className="h-4 w-4 text-black/80 dark:text-white/85" />
                       <div className="truncate text-sm font-semibold">{v.nickname}</div>
                     </div>
 
                     <div className="mt-2">
-                      <div className="text-xs text-black/60 dark:text-white/85">Battery</div>
+                      <div className="text-xs text-black/80 dark:text-white/85">Battery</div>
                       <div className="mt-1 text-3xl font-semibold tracking-tight">{isLoading ? "—" : `${battery}%`}</div>
                       <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-black/10 dark:bg-white/10">
                         <div
@@ -131,10 +131,10 @@ export function TeslaWidget() {
 
                 <div className="mt-3 flex items-center justify-between gap-3">
                   <div>
-                    <div className="text-xs text-black/60 dark:text-white/85">Range</div>
+                    <div className="text-xs text-black/80 dark:text-white/85">Range</div>
                     <div className="mt-1 text-lg font-semibold">{isLoading ? "—" : `${range} mi`}</div>
                   </div>
-                  <div className="text-xs text-black/60 dark:text-white/85 text-right">
+                  <div className="text-xs text-black/80 dark:text-white/85 text-right">
                     Updated{" "}
                     {st ? new Date(st.updatedAt).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }) : "—"}
                   </div>
@@ -154,11 +154,11 @@ export function TeslaWidget() {
 
           <div className="mt-3 space-y-3">
             <div>
-              <div className="text-xs font-medium text-black/60 dark:text-white/85">Nickname</div>
+              <div className="text-xs font-medium text-black/80 dark:text-white/85">Nickname</div>
               <Input value={nickname} onChange={(e) => setNickname(e.target.value)} placeholder="예: Home Tesla" className="mt-1" />
             </div>
             <div>
-              <div className="text-xs font-medium text-black/60 dark:text-white/85">VIN (optional)</div>
+              <div className="text-xs font-medium text-black/80 dark:text-white/85">VIN (optional)</div>
               <Input value={vin} onChange={(e) => setVin(e.target.value)} placeholder="예: 5YJ..." className="mt-1" />
             </div>
           </div>

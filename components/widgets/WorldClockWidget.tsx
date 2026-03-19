@@ -52,10 +52,10 @@ export function WorldClockWidget({ compactMode }: { compactMode: boolean }) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-black/60 dark:text-white/85" />
+            <Clock className="h-4 w-4 text-black/80 dark:text-white/85" />
             <div className="text-sm font-semibold">World Clock</div>
           </div>
-          <div className="mt-1 text-xs text-black/60 dark:text-white/85">
+          <div className="mt-1 text-xs text-black/80 dark:text-white/85">
             Default zones. Use <span className="font-semibold">Add</span> (+) to show more.
           </div>
         </div>
@@ -94,18 +94,18 @@ export function WorldClockWidget({ compactMode }: { compactMode: boolean }) {
               className={`rounded-2xl border p-3 ${
                 isLocal
                   ? "border-foreground/40 bg-white/90 dark:bg-black/45"
-                  : "border-black/10 bg-white/95 dark:bg-black/45"
+                  : "border-black/20 bg-white/95 dark:bg-black/45"
               }`}
             >
               <div className="flex items-center justify-between gap-2">
                 <div className="min-w-0">
                   <div className="truncate text-sm font-semibold">{c.label}</div>
-                  <div className="mt-1 text-xs text-black/60 dark:text-white/85">{date}</div>
+                  <div className="mt-1 text-xs text-black/80 dark:text-white/85">{date}</div>
                 </div>
                 {isLocal ? <Badge variant="info">Local</Badge> : null}
               </div>
               <div className="mt-3 text-2xl font-semibold tracking-tight">{time}</div>
-              <div className="mt-1 text-xs text-black/60 dark:text-white/85">{c.timeZone}</div>
+              <div className="mt-1 text-xs text-black/80 dark:text-white/85">{c.timeZone}</div>
             </div>
           );
         })}

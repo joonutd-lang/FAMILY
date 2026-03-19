@@ -71,14 +71,14 @@ export function FamilyHeader({
             <div className="h-9 w-9 rounded-2xl bg-gradient-to-br from-sky-400 to-pink-400 shadow-sm" />
             <div className="min-w-0">
               <div className="truncate text-lg font-semibold">Family Hub OS</div>
-              <div className="text-xs text-black/60 dark:text-white/85">{currentTimeLabel}</div>
+              <div className="text-xs text-black/80 dark:text-white/85">{currentTimeLabel}</div>
             </div>
           </div>
         </div>
 
         <div className="flex flex-1 items-center justify-end gap-3">
           <div className="relative hidden w-[420px] md:block" aria-live="polite">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/60 dark:text-white/85" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/80 dark:text-white/85" />
             <Input
               ref={inputRef}
               className="pl-9"
@@ -114,7 +114,7 @@ export function FamilyHeader({
                     </div>
                     <div className="min-w-0">
                       <div className="truncate text-sm font-medium">{r.title}</div>
-                      {r.subtitle ? <div className="truncate text-xs text-black/60 dark:text-white/85">{r.subtitle}</div> : null}
+                      {r.subtitle ? <div className="truncate text-xs text-black/80 dark:text-white/85">{r.subtitle}</div> : null}
                     </div>
                   </button>
                 ))}
@@ -159,7 +159,7 @@ export function FamilyHeader({
           </TabsList>
           {members.map((m) => (
             <TabsContent key={m.id} value={m.id}>
-              <div className="mt-2 text-xs text-black/60 dark:text-white/85">
+              <div className="mt-2 text-xs text-black/80 dark:text-white/85">
                 You’re viewing as <span className="font-medium">{m.name}</span>.
               </div>
             </TabsContent>

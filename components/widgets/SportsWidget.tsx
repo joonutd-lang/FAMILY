@@ -68,14 +68,14 @@ export function SportsWidget() {
         <img
           src={team.logoUrl}
           alt={team.abbreviation}
-          className="h-9 w-9 rounded-xl border border-black/10 bg-white/95 p-1 object-contain dark:border-white/20 dark:bg-black/45"
+          className="h-9 w-9 rounded-xl border border-black/20 bg-white/95 p-1 object-contain dark:border-white/20 dark:bg-black/45"
           loading="lazy"
         />
       );
     }
     return (
       <div
-        className="h-9 w-9 rounded-xl border border-black/10 bg-white/95 dark:border-white/20 dark:bg-black/45"
+        className="h-9 w-9 rounded-xl border border-black/20 bg-white/95 dark:border-white/20 dark:bg-black/45"
         style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
         <div className="h-5 w-5 rounded-full" style={{ background: team.color }} />
@@ -88,24 +88,24 @@ export function SportsWidget() {
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <Star className="h-4 w-4 text-black/60 dark:text-white/85" />
+            <Star className="h-4 w-4 text-black/80 dark:text-white/85" />
             <div className="text-sm font-semibold">Sports</div>
           </div>
-          <div className="mt-1 text-xs text-black/60 dark:text-white/85">Pick favorite teams. Scores + next games.</div>
+          <div className="mt-1 text-xs text-black/80 dark:text-white/85">Pick favorite teams. Scores + next games.</div>
         </div>
         <Button variant="ghost" className="rounded-full" onClick={() => refetch()} disabled={selectedTeamIds.length === 0}>
           Refresh
         </Button>
       </div>
 
-      <div className="mt-3 rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
+      <div className="mt-3 rounded-2xl border border-black/20 bg-white/95 p-3 dark:bg-black/55">
         <div className="flex items-center justify-between gap-2">
-          <div className="text-xs font-medium text-black/60 dark:text-white/85">Favorite teams</div>
+          <div className="text-xs font-medium text-black/80 dark:text-white/85">Favorite teams</div>
           <Badge variant="info">Multiple</Badge>
         </div>
 
         {favoriteTeamIds.length === 0 ? (
-          <div className="mt-3 text-sm text-black/60 dark:text-white/85">
+          <div className="mt-3 text-sm text-black/80 dark:text-white/85">
             아래에서 팀을 `Add`로 추가하면 점수/다음 경기가 보여요.
           </div>
         ) : (
@@ -118,19 +118,19 @@ export function SportsWidget() {
               const opponent = item.opponent;
               const nextAt = new Date(next.startAt);
               return (
-                <div key={team.id} className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/45">
+                <div key={team.id} className="rounded-2xl border border-black/20 bg-white/95 p-3 dark:bg-black/45">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <TeamEmblem team={team} />
                         <div className="min-w-0">
                           <div className="truncate text-sm font-semibold">{team.abbreviation}</div>
-                          <div className="text-xs text-black/60 dark:text-white/85">{team.league}</div>
+                          <div className="text-xs text-black/80 dark:text-white/85">{team.league}</div>
                         </div>
                       </div>
                       <div className="mt-2 text-sm">
                         <span className="font-semibold">{latestTeamScore}</span>{" "}
-                        <span className="text-black/60 dark:text-white/85">final</span>
+                        <span className="text-black/80 dark:text-white/85">final</span>
                       </div>
                     </div>
                     <UiBadge variant="default" className="bg-black/5 dark:bg-white/15">
@@ -142,7 +142,7 @@ export function SportsWidget() {
                     <div className="flex items-center justify-between gap-3">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                        <div className="truncate text-xs text-black/60 dark:text-white/85">
+                        <div className="truncate text-xs text-black/80 dark:text-white/85">
                             vs {opponent?.abbreviation ?? "Opponent"}
                           </div>
                         </div>
@@ -182,12 +182,12 @@ export function SportsWidget() {
               <div
                 key={t.id}
                 className={`flex items-center justify-between gap-3 rounded-2xl border px-3 py-2 text-left ${
-                  on ? "border-black/20 bg-white/90" : "border-black/10 bg-white/95 hover:bg-white/90"
+                  on ? "border-black/20 bg-white/90" : "border-black/20 bg-white/95 hover:bg-white/90"
                 } dark:hover:bg-black/55`}
               >
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <div className="h-7 w-7 rounded-lg border border-black/10 bg-white/95 p-1 dark:border-white/20 dark:bg-black/45">
+                    <div className="h-7 w-7 rounded-lg border border-black/20 bg-white/95 p-1 dark:border-white/20 dark:bg-black/45">
                       {t.logoUrl ? (
                         <img src={t.logoUrl} alt={t.abbreviation} className="h-full w-full rounded-[5px] object-contain" loading="lazy" />
                       ) : (
@@ -196,7 +196,7 @@ export function SportsWidget() {
                     </div>
                     <div className="truncate text-xs font-semibold">{t.abbreviation}</div>
                   </div>
-                  <div className="truncate text-[11px] text-black/60 dark:text-white/85">{t.name}</div>
+                  <div className="truncate text-[11px] text-black/80 dark:text-white/85">{t.name}</div>
                 </div>
                 <Button
                   type="button"

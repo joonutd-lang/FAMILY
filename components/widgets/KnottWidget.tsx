@@ -32,23 +32,23 @@ export function KnottWidget() {
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <CalendarClock className="h-4 w-4 text-black/60 dark:text-white/85" />
+            <CalendarClock className="h-4 w-4 text-black/80 dark:text-white/85" />
             <div className="text-sm font-semibold">Knott’s Berry Farm</div>
           </div>
-          <div className="mt-1 text-xs text-black/60 dark:text-white/85">Hours for today.</div>
+          <div className="mt-1 text-xs text-black/80 dark:text-white/85">Hours for today.</div>
         </div>
         {isLoading ? <Badge>Loading…</Badge> : <Badge variant={open ? "success" : "danger"}>{open ? "Open" : "Closed"}</Badge>}
       </div>
 
       <Separator className="my-3" />
 
-      <div className="rounded-2xl border border-black/10 bg-white/95 p-3 dark:bg-black/55">
+      <div className="rounded-2xl border border-black/20 bg-white/95 p-3 dark:bg-black/55">
         <div className="flex items-center gap-2">
-          <MapPin className="h-4 w-4 text-black/60 dark:text-white/85" />
+          <MapPin className="h-4 w-4 text-black/80 dark:text-white/85" />
           <div className="text-sm font-medium">{data?.parkName ?? "Knott’s Berry Farm"}</div>
         </div>
         <div className="mt-2 text-sm font-semibold">{formatDateShort(now)}</div>
-        <div className="mt-2 text-sm text-black/70 dark:text-white/85">{data?.hoursText ?? "—"}</div>
+        <div className="mt-2 text-sm text-black/80 dark:text-white/85">{data?.hoursText ?? "—"}</div>
       </div>
 
       <div className="mt-3 flex items-center justify-between gap-3">
